@@ -1,0 +1,19 @@
+[
+  "test_solutions.py::test_addition",
+  "test_solutions.py::test_smallest_factor",
+  "test_solutions.py::test_month_length",
+  "test_solutions.py::test_operate",
+  "test_solutions.py::test_fraction_init",
+  "test_solutions.py::test_fraction_str",
+  "test_solutions.py::test_fraction_float",
+  "test_solutions.py::test_fraction_eq",
+  "test_solutions.py::test_init",
+  "test_solutions.py::test_str",
+  "test_solutions.py::test_eq",
+  "test_solutions.py::test_add",
+  "test_solutions.py::test_sub",
+  "test_solutions.py::test_mul",
+  "test_solutions.py::test_truediv",
+  "test_solutions.py::test_isSet",
+  "test_solutions.py::test_count_sets"
+]

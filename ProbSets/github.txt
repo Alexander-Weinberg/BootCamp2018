@@ -1,0 +1,13 @@
+%%% Notes of Github
+
+1. Choose a name that isn’t dumb
+
+2. fork repo from OSM main repository to my own copy of it (*click* fork)
+
+3. cd into the directory I want, then clone from internet (clone GitHub url)
+
+4. edit and mess around
+
+5. push to your server
+
+6. submit a pull request to the main repo

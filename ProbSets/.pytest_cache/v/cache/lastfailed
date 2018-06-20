@@ -1,0 +1,4 @@
+{
+  "test_solutions.py::test_complex_addition": true,
+  "test_solutions.py::test_complex_multiplication": true
+}
