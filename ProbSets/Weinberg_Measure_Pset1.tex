@@ -75,21 +75,24 @@
 \begin{solution}(1.3)
   \begin{enumerate}
   \item
-  Suppose $s \in \mathbb{R} $ open. So $s \in \mathbb{G}_1$ by definition. Take $s^c \in \mathbb{R}$ is close by properties of open/closed sets. \\
-  $\Rightarrow$ $s^c \not \in \mathbb{G}_1$ by definition of $\mathbb{G}_1$ \\
-  $\Rightarrow$ not closed under complements. So G1 is not a sigma-algebra.
+  Suppose $A \in \mathbb{R} $ open. So $A \in \mathbb{G}_1$ by definition. Take $A^c \in \mathbb{R}$ which is closed by properties of open/closed sets. \\
+  $\Rightarrow$ $A^c \not \in \mathcal{G}_1$ by definition of $\mathcal{G}_1$ \\
+  $\Rightarrow$ G1 not closed under complements. So G1 is not an algebra. $\qed$
 
   \item \textbf{WTS:} G2 algebra
   \begin{itemize}
-  \item $\emptyset \in (a,b] \Rightarrow \emptyset \in \mathbb{G}_2 $
-  \item Suppose $A_j = \cup_{i=1}^{N_j} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))$ \\
-  So then $\cup_j^M A_j = \cup_j^M (\cup_{i=1}^{N_j} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))) \in \mathbb{G}_2 \qed$
+  \item $\emptyset \in \mathcal{G}_2 \\
+  \Rightarrow \emptyset \in \mathcal{G}_2 $
+  \item Suppose $A_j = \bigcup_{i=1}^{N_j} (a_i,b_i] $ \\
+  So then $\bigcup_j^M A_j = \bigcup_j^M (\bigcup_{i=1}^{N_j} ((a_i,b_i]) \in \mathcal{G}_2$
+  \item Suppose $A_j = \bigcup_{i=1}^{N_j} (a_i,b_i] $ \\
+  So then complement $(-\infty, a_1] \bigcup (b_n, \infty) \in \mathcal{G}_2 \qed$
   \end{itemize}
   So G2 is an algebra.
 
   \item \textbf{WTS:} G3 sig-alg
   \begin{itemize}
-    \item $\emptyset \in (a,b] \Rightarrow \emptyset \in \mathbb{G}_3 $
+    \item $\emptyset \in \mathcal{G}_3$
     \item Suppose $A_j = \cup_{i=1}^{N_j} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))$ \\
     So then $\cup_j^\infty A_j = \cup_j^\infty (\cup_{i=1}^{\infty} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))) \in \mathbb{G}_3 \qed$
   \end{itemize}
@@ -98,22 +101,28 @@
 \end{solution}
 
 \begin{solution} (1.7)
+Suppose $\mathcal{A}$ is an sigma algebra. \\
+\textbf{WTS:} $\{\emptyset,X\} \subset \mathcal{A} \subset \mathcal{P}(X)$ \\
+\textbf{Pf:} $\emptyset \in S$ for every S sigma algebra. Also, S must be closed under complements
+therefore $\emptyset^c = X \in S$. So the smallest possible sigma algebra is $\{\emptyset,X\}$. Also, suppose $A \in \mathcal{A}$ so $A \in \mathcal{P}(X)$ because $\mathcal{A} \subset X$ \\$ \therefore \mathcal{A} \subset \mathcal{P}(X)$
 
-Suppose $\mathcal{A}$ is an algebra. \textbf{WTS:} $\{\emptyset,X\} \subset \mathcal{A} \subset \mathcal{P}(X)$
 \end{solution}
 
 \begin{solution} (1.10) \\
-i) $\emptyset \in S_\alpha \forall \alpha$ by definition of sig-alg. $\Rightarrow \emptyset \in \cap^\alpha S_\alpha$ \\
+i) $\emptyset \in S_\alpha$  \quad $ \forall \alpha$ by definition of sig-alg. $\Rightarrow \emptyset \in \cap^\alpha S_\alpha$ \\
 ii) suppose $A_1,.... \in \cap^\alpha S_\alpha$ this implies $A_1,.... \in S_\alpha \forall \alpha$ \\
 So the union of $A_i \in S_\alpha$ for every alpha. \\~\\
-So $\cup A_1,... \in \cap^\infty S_\alpha$ Therefore intersection is a sigma algebra.
+So $\cup A_1,... \in \cap^\infty S_\alpha$ \\
+Also, suppose $A \in \bigcap S_\alpha$ now we know that $A \in S_\alpha \quad \forall \alpha$ by definition of sigma-algebra. $A^c \in S_\alpha \quad \forall \alpha$ so, $A^c \in \bigcap S_\alpha$
+Therefore intersection is a sigma algebra.
+
 \end{solution}
 
 \begin{solution} (1.17) \\
 i) We know \[ \mu(A\cup B)) = \mu(A) + \mu(B)\] if \[A\cap B = \emptyset\].
 Now suppose $A \subset B$ and
-$B = A \cup B$. \\
-So, \[\mu(A \cup U) = \mu(A) \mu(U) \ge \mu(A)\] because measure is valued on positive reals.
+$B = A \cup U$. \\
+So, \[\mu(A \cup U) = \mu(A) + \mu(U) \ge \mu(A)\] because measure is valued on positive reals.
 \\~\\
 
 ii) We know, \[
@@ -128,7 +137,7 @@ So, \[
 \textbf{WTS:}\[
 \lambda(A) = \mu(A\cap B)
 \]
-\textbf{Pf:}\[ A,B \in S \Rightarrow (A \cap B) \in S. \Rightarrow \emptyset \cap B
+\textbf{Pf:}\[ A,B \subset S \Rightarrow (A \cap B) \subset S. \Rightarrow \emptyset \cap B
 = \emptyset
 \]
 So, i) \[ \lambda(\emptyset) = \mu(\emptyset) = 0
@@ -139,8 +148,17 @@ And because intersection is in S and , \[\lambda(A) = \mu(A\cap B) \Rightarrow
 \]
 \end{solution}
 
-
-\begin{solution} (1.20)
+\newpage
+\begin{solution} (1.20) \\
+\begin{gather*}
+\mu(A_1) - \mu(\lim_{n \rightarrow \infty} (A_n))\\
+= \mu(A_1 \bigcap \lim_{n \rightarrow \infty} A_n) \\
+= \mu(\lim_{n \rightarrow \infty} (A_1 \bigcap A_n) ) \\
+= \lim_{n \rightarrow \infty} \mu(A_1 \bigcap A_n) \\
+= \lim_{n \rightarrow \infty} \mu(A_1) - \mu (A_n)) \\
+= \mu(A_1) - \lim_{n \rightarrow \infty} \mu(A_n) \\
+\therefore \mu(\lim_{n \rightarrow \infty} (A_n)) = \lim_{n \rightarrow \infty} \mu(A_n)
+\end{gather*}
 \end{solution}
 
 \end{document}
