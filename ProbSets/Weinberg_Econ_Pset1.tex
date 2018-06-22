@@ -74,7 +74,7 @@
 
 
 
-\begin{problem} ~\\
+\noindent\textbf{Problem 1} ~\\
 Consider the problem of the owner of an oil field. The owner has B barrels of oil. She can
 sell these barrels at price pt at time t. Her objective is to maximize the discounted present
 value of sales of oil - we’ll assume there are no extraction costs. The owner discounts the
@@ -85,7 +85,7 @@ future at a rate given by 1/1+r (where r is the real interest rate and assumed t
 4. Write down the sequence problem of the owner. Write down the Bellman equation. \\
 5. What does the owner’s Euler equation like? \\
 6. What would the solution of the problem look like if pt+1 = pt for all t? What would the solution look like if pt+1 > (1 + r)pt for all t? What is the condition on the path of prices necessary for an interior solution (where the owner will extract some, but not all, of the oil)?
-\end{problem}
+
 
 \begin{solution} ~\\
   \begin{enumerate}
@@ -107,7 +107,7 @@ future at a rate given by 1/1+r (where r is the real interest rate and assumed t
 \end{solution}
 %-------------------------------------
 
-\begin{problem}
+\noindent\textbf{Problem 2} ~\\
 The Neoclassical Growth Model is a workhorse model in macroeconomics. The problem for the social planner is to maximize the discounted expected utility for agents in the economy:
 ∞
  maxE  βtu(c) (1) {c}∞0 t
@@ -117,14 +117,19 @@ yt = ct + it (2) The law of motion for the capital stock is:
 kt+1 =(1−δ)kt +it (3) Output is determined by the aggregate production function:
 yt = ztktα (4) Assume that zt is stochastic. In particular, it is an i.i.d. process distributed as ln(z) ∼
 N(0,σz).
-\end{problem}
+
 
 \begin{solution} ~\\
-\begin{enumerate}
-\item State variable is $k_t$
-\item Control variables are $c_t,i_t$
-\item $V(k_t) = u(c_t) + \beta E_t[V(k_{t+1})]$ s.t. above constraints.
-\end{enumerate}
+  \begin{enumerate}
+  \item State variable is $k_t$
+  \item Control variables are $c_t,i_t$
+  \item $V(k_t) = u(c_t) + \beta E_t[V(k_{t+1})]$ \\ s.t.
+  \end{enumerate}
+  \begin{gather}
+    y_t = c_t + i_t \\
+    k_{t+1} = (1- \delta)k_t + i_t \\
+    y_t = z_tk_t^\alpha
+  \end{gather}
 \end{solution}
 %-----------------------------
 \end{document}

@@ -81,7 +81,7 @@
 
   \item \textbf{WTS:} G2 algebra
   \begin{itemize}
-  \item $\varnothing \in (a,b] \Rightarrow \varnothing \in \mathbb{G}_2 $
+  \item $\emptyset \in (a,b] \Rightarrow \emptyset \in \mathbb{G}_2 $
   \item Suppose $A_j = \cup_{i=1}^{N_j} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))$ \\
   So then $\cup_j^M A_j = \cup_j^M (\cup_{i=1}^{N_j} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))) \in \mathbb{G}_2 \qed$
   \end{itemize}
@@ -89,7 +89,7 @@
 
   \item \textbf{WTS:} G3 sig-alg
   \begin{itemize}
-    \item $\varnothing \in (a,b] \Rightarrow \varnothing \in \mathbb{G}_3 $
+    \item $\emptyset \in (a,b] \Rightarrow \emptyset \in \mathbb{G}_3 $
     \item Suppose $A_j = \cup_{i=1}^{N_j} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))$ \\
     So then $\cup_j^\infty A_j = \cup_j^\infty (\cup_{i=1}^{\infty} ((a_i,b_i] \cup (-\infty,b] \cup (a,\infty))) \in \mathbb{G}_3 \qed$
   \end{itemize}
@@ -99,17 +99,47 @@
 
 \begin{solution} (1.7)
 
-Suppose $\mathcal{A}$ is an algebra. \textbf{WTS:} $\{\varnothing,X\} \subset \mathcal{A} \subset \mathcal{P}(X)$
+Suppose $\mathcal{A}$ is an algebra. \textbf{WTS:} $\{\emptyset,X\} \subset \mathcal{A} \subset \mathcal{P}(X)$
 \end{solution}
 
-\begin{solution} (1.10)
-i) $\varnothing$
+\begin{solution} (1.10) \\
+i) $\emptyset \in S_\alpha \forall \alpha$ by definition of sig-alg. $\Rightarrow \emptyset \in \cap^\alpha S_\alpha$ \\
+ii) suppose $A_1,.... \in \cap^\alpha S_\alpha$ this implies $A_1,.... \in S_\alpha \forall \alpha$ \\
+So the union of $A_i \in S_\alpha$ for every alpha. \\~\\
+So $\cup A_1,... \in \cap^\infty S_\alpha$ Therefore intersection is a sigma algebra.
 \end{solution}
 
-\begin{solution} (1.17)
+\begin{solution} (1.17) \\
+i) We know \[ \mu(A\cup B)) = \mu(A) + \mu(B)\] if \[A\cap B = \emptyset\].
+Now suppose $A \subset B$ and
+$B = A \cup B$. \\
+So, \[\mu(A \cup U) = \mu(A) \mu(U) \ge \mu(A)\] because measure is valued on positive reals.
+\\~\\
+
+ii) We know, \[
+\mu (\cup_{i=1}^\infty A_i) = \sum_{i=1}^\infty \mu(A_i) - \mu(\cap_i A_i)
+\]
+So, \[
+\mu(\cup_{i=1}^n A_i) + \underbrace{\mu(\cap_i^\infty A_i)}_{\ge 0} = \sum_{i=1}^\infty \mu(A_i)
+\]
 \end{solution}
-\begin{solution} (1.18)
+
+\begin{solution} (1.18) \\
+\textbf{WTS:}\[
+\lambda(A) = \mu(A\cap B)
+\]
+\textbf{Pf:}\[ A,B \in S \Rightarrow (A \cap B) \in S. \Rightarrow \emptyset \cap B
+= \emptyset
+\]
+So, i) \[ \lambda(\emptyset) = \mu(\emptyset) = 0
+\]
+And because intersection is in S and , \[\lambda(A) = \mu(A\cap B) \Rightarrow
+\lambda(\cup^\infty A_i) = \mu(\cup^\infty (A_i \cap B)) = \sum^\infty \underbrace{\mu(A_i \cap B)}_{\lambda(A_i)}
+= \sum^\infty \lambda(A_i)
+\]
 \end{solution}
+
+
 \begin{solution} (1.20)
 \end{solution}
 
