@@ -182,11 +182,10 @@ so, \quad o \in \mathcal{M}
 %----------------------------------
 \section{}
 \begin{solution}{(3.1)}
-Suppose $r = \bigcup_{i+1}^N r_i : r_i \in \mathbb{N}$ \\
-Set $ \forall \epsilon < \min {|r_i - r_{i+1}| }$ \\
-Construct $I_\epsilon^i = (x_i - \epsilon_i, x_i + \epsilon_i)$
-
-As we can make epsilon arbitrarily small. r is covered by union of sets of measure zeros. Therefore measure of r is zero.
+Suppose $r = \bigcup_{n \in \mathbb{N}} r_i$ \\
+So $\mu(\bigcup_{n \in \mathbb{N}}r_i) = \sum_{n \in \mathbb{N}}\mu(r_i)$ \\
+but by construction of lebesque measure, $\mu(r_i) = 0, \forall i$\\
+So, $\mu(r) = \mu(\bigcup_{n \in \mathbb{N}} r_i) = 0$
 \end{solution}
 
 \begin{solution}{(3.4)} \\
@@ -215,7 +214,7 @@ Right to Left: Suppose sets of the form $f^{-1}((-\infty, a)) \in \mathcal{M}$. 
   \item Take $F(f(x) + g(x)) = f(x) + g(x)$. So $F$ is cont. and (part 4) measurable. So, $f + g$ is measurable.
   \item Take $F(f(x) + g(x)) = f(x)g(x)$. So $F$ is cont. and (part 4) measurable. So, $f \cdot g$ is measurable.
   \item As $f$ and $g$ are measurable functions on $(X,\mathcal{M})$, \\$ \forall a \in \mathbb{R}$, $\{x \in X : f(x) < a \} \in \mathcal{M}$ and $\{x \in X : g(x) < a \} \in \mathcal{M}$. \\
-  So,  $\{x \in X : \max(f(x),g(x)) < a \} = \{x \in X : f(x) < a \} \cap \{x \in X : g(x) < a \}$. $\mathcal{M}$ is closed under countable intersections, therefore, $\{x \in X : \max(f(x),g(x)) < a \} \in \mathcal{M}$, so that $\max(f(x), g(x))$ is measurable.
+  So,  $$\{x \in X : \max(f(x),g(x)) < a \} = \{x \in X : f(x) < a \} \cap \{x \in X : g(x) < a \}$$. $\mathcal{M}$ is closed under countable intersections, therefore, $\{x \in X : \max(f(x),g(x)) < a \} \in \mathcal{M}$, so that $\max(f(x), g(x))$ is measurable.
   \item $\{x \in X : \min(f(x),g(x)) > a \} = \{x \in X : f(x) > a \} \cap \{x \in X : g(x) > a \}$. $\mathcal{M}$ is closed under countable intersections, \\
   So, $\{x \in X : \min(f(x),g(x)) > a \} \in \mathcal{M}$, so that $\min(f(x), g(x))$ is measurable.Basically the same proof as above.
   \item Because $\{x \in X : |f(x)| > a \} = \{x \in X : f(x) < -a \} \cup \{x \in X : f(x) > a \}$. Both of these sets are in $\mathcal{M}$. $\mathcal{M}$ is closed under countable unions, therefore, $\{x \in X : |f(x)| > a \} \in \mathcal{M}$, so that $|f(x)|$ is measurable.
