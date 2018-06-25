@@ -72,6 +72,7 @@
 
 \vspace{5mm}
 
+\section{}
 \begin{solution}(1.3)
   \begin{enumerate}
   \item
@@ -160,5 +161,145 @@ And because intersection is in S and , \[\lambda(A) = \mu(A\cap B) \Rightarrow
 \therefore \mu(\lim_{n \rightarrow \infty} (A_n)) = \lim_{n \rightarrow \infty} \mu(A_n)
 \end{gather*}
 \end{solution}
+
+\section{}
+\begin{solution}{(2.10)}
+We know from the countable subadditivity of the outer measure that
+$$\mu^*(B) \leq \mu^*(B \cap E) + \mu^*(B \cap E^c) $$
+So the if $\geq$ from the theorum holds, and $\leq$ holds from definition of outer measure and it is equivalent to replace it with equality.
+\end{solution}
+
+\begin{solution}{(2.14)} \textbf{WTS:} $\sigma(\mathcal{O}) \subset \mathcal{M}$
+From Caratheodory and construction of lebasque measure as a infinite ocllection of the form $(a,b]$ and $(-\infty, a]$ we know
+\begin{align}
+\sigma(\mathcal{A})  \subset \mathcal{M} \\
+if \quad o \in \sigma(\mathcal{O}) \quad then \quad o \in \sigma(\mathcal{A}) \\
+so, \quad o \in \mathcal{M}
+\end{align}
+
+\end{solution}
+
+%----------------------------------
+\section{}
+\begin{solution}{(3.1)}
+Suppose $r = \bigcup_{i+1}^N r_i : r_i \in \mathbb{N}$ \\
+Set $ \forall \epsilon < \min {|r_i - r_{i+1}| }$ \\
+Construct $I_\epsilon^i = (x_i - \epsilon_i, x_i + \epsilon_i)$
+
+As we can make epsilon arbitrarily small. r is covered by union of sets of measure zeros. Therefore measure of r is zero.
+\end{solution}
+
+\begin{solution}{(3.4)} \\
+Because the set of all measureable sets is a sigma-algebra, it is closed under complements. So those conditions provided each are complements of each other. \\
+I'll show that the sets being measurable are all equivalent statements. \\
+$f^{-1}((-\infty, a))$ is measurable $\iff f^{-1}([a, \infty))$ is measurable (they are complements). \textbf{WTS:}
+$$ f^{-1}((-\infty, a)) \in \mathcal{M} \iff f^{-1}((-\infty, a]) \in \mathcal{M} $$
+
+Left to Right: Suppose sets of the form $f^{-1}((-\infty, a]) \in \mathcal{M}$. \\
+Now, we construct a sequence of sets $E_{i,n} = f^{-1}((-\infty, a - \frac{1}{n}]) \in \mathcal{M} $. This countable union $\cup_{n=1}^\infty = f^{-1}((-\infty, a])$ is in $\mathcal{M}$ \\~\\
+Right to Left: Suppose sets of the form $f^{-1}((-\infty, a)) \in \mathcal{M}$. Then their complements, sets of the form $f^{-1} ([a, \infty))$ are also $in \mathcal{M}$. We can use a similar argument, employing sets of the form $f^{-1}([ a + \frac{1}{n}, \infty))$ to show that sets of the form $f^{-1}((a, \infty)) \in \mathcal{M}$. This shows that the complements of these sets, $f^{-1}((-\infty, a])$, are also elements of $\mathcal{M}$ \\
+\end{solution}
+
+
+\begin{solution}{(3.7)} \\
+\textbf{WTS:}
+\begin{enumerate}
+	\item $f + g$
+	\item $f \cdot g$
+	\item $\max(f,g)$
+	\item $\min(f,g)$
+	\item $|f|$
+\end{enumerate}
+\textbf{Pf:}
+\begin{enumerate}
+  \item Take $F(f(x) + g(x)) = f(x) + g(x)$. So $F$ is cont. and (part 4) measurable. So, $f + g$ is measurable.
+  \item Take $F(f(x) + g(x)) = f(x)g(x)$. So $F$ is cont. and (part 4) measurable. So, $f \cdot g$ is measurable.
+  \item As $f$ and $g$ are measurable functions on $(X,\mathcal{M})$, \\$ \forall a \in \mathbb{R}$, $\{x \in X : f(x) < a \} \in \mathcal{M}$ and $\{x \in X : g(x) < a \} \in \mathcal{M}$. \\
+  So,  $\{x \in X : \max(f(x),g(x)) < a \} = \{x \in X : f(x) < a \} \cap \{x \in X : g(x) < a \}$. $\mathcal{M}$ is closed under countable intersections, therefore, $\{x \in X : \max(f(x),g(x)) < a \} \in \mathcal{M}$, so that $\max(f(x), g(x))$ is measurable.
+  \item $\{x \in X : \min(f(x),g(x)) > a \} = \{x \in X : f(x) > a \} \cap \{x \in X : g(x) > a \}$. $\mathcal{M}$ is closed under countable intersections, \\
+  So, $\{x \in X : \min(f(x),g(x)) > a \} \in \mathcal{M}$, so that $\min(f(x), g(x))$ is measurable.Basically the same proof as above.
+  \item Because $\{x \in X : |f(x)| > a \} = \{x \in X : f(x) < -a \} \cup \{x \in X : f(x) > a \}$. Both of these sets are in $\mathcal{M}$. $\mathcal{M}$ is closed under countable unions, therefore, $\{x \in X : |f(x)| > a \} \in \mathcal{M}$, so that $|f(x)|$ is measurable.
+\end{enumerate}
+\end{solution}
+
+\begin{solution}{(3.14)} \\
+\textbf{WTS:}
+$$ \forall \epsilon > 0, \exists N=N(\epsilon) \text{ such that } n \geq N \implies |f(x)-s_n(x)| < \epsilon, \forall x \in X$$
+
+Let $\epsilon > 0$. Suppose $f(x) < M$. Pick $N > M$ in the naturals. Then $f(x) < N \quad \forall x$  and $x \notin E_\infty^{N}$. We also see that there exists $N_1$ such that
+$$
+N_1 > N \text{ and } \frac{1}{2^{N_1}} < \epsilon
+$$
+Now, it follows that for $n>N_1$,
+$$
+\forall x \in X, x \in E_i^n \text{ for some index } 0 \leq i \leq N_1, i \in \mathbb{N}
+$$
+Then $f(x) \in [\frac{i-1}{2^n}, \frac{i}{2^n}) $ and our simple function in this interval is $s_n(x) = \frac{i-1}{2^n} $ \\
+But because we chose this $N_1$ so that it works for every single $x \in X$, and so $|f(x) - s_n(x)| < \frac{1}{2^n} < \frac{1}{2^{N^2}} < \epsilon $ we have uniform convergence.
+
+\end{solution}
+
+\begin{solution}{(4.13)} \\
+\textbf{WTS:} $f \in \mathcal{L}^1(\mu, E)$ \\ Which is to say, \\
+\textbf{WTS:} $\int_E f^+ d\mu$ finite \\
+\textbf{WTS:} $\int_E f^- d\mu$ finite \\
+
+We are given $||f|| = f^+ + f^-$. \\
+$0 \leq f^+$ and $0 \leq f^-$ from the definition \\
+Because $||f|| < M$ on $E$, then $0 \leq f^+ < M$ and $0 \leq f^- < M$ on $E$.
+
+Because $\mu(E) < \infty$, we have that,
+\begin{align*}
+  &\int_E f^+ d\mu < M \mu(E) < \infty \\
+  &\int_E f^- d\mu < M \mu(E) < \infty \\
+\end{align*}
+This is what we needed.\\
+$\therefore \quad f \in \mathcal{L}^1(\mu, E)$.
+\end{solution}
+
+\begin{solution}{(4.14)} \\
+Contrapositive is easier to show. \\
+
+Suppose there exists a measurable set $\hat{E} \subset E$ such that $f$ is infinite on $\hat{E}$. \\WLOG: $f = +\infty$
+\begin{equation*}
+	\infty = \int_{\hat{E}} f d\mu \leq \int_E f d\mu \leq \int_E ||f|| d\mu
+\end{equation*}
+But this implies that $f \not\in \mathcal{L}^1(\mu,E)$. Contradiction so our statement is true.
+\end{solution}
+
+\begin{solution}{(4.15)}
+Suppose $f,g \in \mathcal{L}^1(\mu,E)$. \\
+Define the set of simple functions $B(f) = \{ s : 0 \leq s \leq f, s \text{ simple, measurable}  \}$. \\
+Suppose WLOG $f \leq g$. If follows that $f^+ \leq g^+$ and $f^- \geq g^-$. \\
+So we have that $B(f^+) \subset B(g^+)$ and $B(g^-) \subset B(f^-)$ \\
+Which gives us that $ \int_E f^+ d\mu \leq \int_E g^+ d\mu$ and $\int_E f^- d\mu \geq \int_E g^- d\mu$. \\
+From definition of the lebesque integral we know,
+\begin{equation*}
+	\int_E fd\mu = \int_E f^+ d\mu - \int_E f^- d\mu \leq \int_E g^+ d\mu - \int_E g^- d\mu = \int_E g d\mu
+\end{equation*}
+So,
+\begin{equation*}
+	\int_E fd\mu \leq \int_E g d\mu
+\end{equation*}
+\end{solution}
+
+\begin{solution}{(4.16)} \\
+Suppose that $f \in \mathcal{L}(E, \mu)$. \\
+So, $ \int_E f^+ d\mu < \infty, \int_E f^- d\mu < \infty$. \\
+As $A \subset E$, \\
+$\int_A f^+ d\mu < \infty$ and $\int_A f^- d\mu < \infty$. \\
+So, $f \in \mathcal{L}(A, \mu)$.
+\end{solution}
+
+\begin{solution}{(4.21)}
+From above, $ \lambda() = \int_{} f d\mu $ is a measure on $\mathcal{M}$. \\
+Therefore,
+$$ \lambda(A) = \lambda(A \setminus B) + \lambda(A \cap B) = \lambda(A \setminus B) + \lambda(B) $$
+So,
+$$ \int_A fd\mu = \int_{A \setminus B} fd\mu + \int_B fd\mu = \int_B fd\mu $$
+
+\end{solution}
+
+
 
 \end{document}

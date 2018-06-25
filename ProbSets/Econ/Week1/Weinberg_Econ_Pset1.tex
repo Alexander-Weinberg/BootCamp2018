@@ -118,12 +118,11 @@ kt+1 =(1−δ)kt +it (3) Output is determined by the aggregate production functi
 yt = ztktα (4) Assume that zt is stochastic. In particular, it is an i.i.d. process distributed as ln(z) ∼
 N(0,σz).
 
-
 \begin{solution} ~\\
   \begin{enumerate}
-  \item State variable is $k_t$
-  \item Control variables are $c_t,i_t$
-  \item $V(k_t) = u(c_t) + \beta E_t[V(k_{t+1})]$ \\ s.t.
+  \item State variable is $k_t, z_t$
+  \item Control variables are $c_t,i_t$ can reduce to just $c_t$
+  \item $V(k_t,z_t) = u(c_t) + \beta E_t[V(k_{t+1},z_{t+1}) \mid z_{t}]$ \\ s.t.
   \end{enumerate}
   \begin{gather}
     y_t = c_t + i_t \\

@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 import scipy.optimize as opt
 from scipy.optimize import fminbound
 from scipy import interpolate
+from quantecon.markov.approximation import rouwenhorst
 
 #### Parameters
 gamma = 1
@@ -14,21 +15,24 @@ beta = 0.95
 delta = 0.05
 alpha = 0.4
 
-##### Asset space
-kss = ((1 - delta - (1/beta)) / alpha) ** (1/(alpha-1)) # analytically solved for steady state
+# Computational Options
+tol = 1e-5
+maxiter = 1000
 
-nk = 200
+### Discretize Capital State space
 kmin = 0
-kmax = kss + 2
-nk = 200
+kmax = 10
+ksize = 100
 
-kgrid = np.linspace(kmin,kmax,nk)
+kgrid = np.linspace(kmin,kmax,ksize,dtype=np.float64)
 
 #### Discretized risk
+nz = 5
 sigZ = 0.2
 muZ = 0
-# for now, z_t =1 , update later
-zt=1
+
+zdist = rouwenhorst(nz, muZ, sigZ, rho=0)
+z_states = zdist.state_values
 
 #===============================
 # define Functions of problem 
@@ -46,41 +50,42 @@ def u_prime(c):
         c = 1e-8  
     return 1/ (c ** gamma)
 
-def production(k):
-    y = zt * (k ** alpha)
+def production(k,lnZ=1):
+    z = np.exp(lnZ)
+    y = z * (k ** alpha)
     return y
 
 def capital_transition(k,i):
     # k = capital
     # i = savings
-    kap_tomorrow = (1 - delta) * k + i
-    return kap_tomorrow
+    k_new = (1 - delta) * k + i
+    return k_new
   
 #===============================
 
-def coleman_operator(phi, kgrid):
+def coleman_operator(phi):
     '''
     The Coleman operator, which takes an existing guess phi of the
     optimal consumption policy and computes and returns the updated function
     Kphi on the grid points.
     '''
-
-    # === Apply linear interpolation to phi === #
-    phi_func = interpolate.interp1d(kgrid, phi, fill_value='extrapolate')
-
     # == Initialize Kphi if necessary == #
     Kphi = np.empty_like(phi)
 
     # == solve for updated consumption value
-    for ik, k in enumerate(kgrid):
-        def h(c):
-            y = production(k) # income from capital
-            kap_tomorrow = capital_transition(k, y-c)
-            return u_prime(c) - beta * u_prime(phi_func(kap_tomorrow))
-        results = opt.root(h, 1e-10)
-        c_star = results.x[0]
-        Kphi[ik] = c_star
-
+    for iz, z in enumerate(z_states):
+        # === Apply linear interpolation to phi === #
+        phi_func = interpolate.interp1d(kgrid, phi[:,iz], fill_value='extrapolate')
+        
+        for ik, k in enumerate(kgrid):
+            def h(c):
+                y = production(k,z) # income from capital
+                kap_tomorrow = capital_transition(k, y-c)
+                return u_prime(c) - beta * u_prime(phi_func(kap_tomorrow))
+            results = opt.root(h, 1e-10)
+            c_star = results.x[0]
+            Kphi[ik,iz] = c_star
+    
     return Kphi
 #============================================
 '''
@@ -95,21 +100,20 @@ iter    = integer, current iteration number
 new_phi   = vector, updated policy function after applying Coleman operator
 ------------------------------------------------------------------------
 '''
-#### Tolerance options
-tol = 1e-5
-maxiter = 100
-diff = 7
 
-conguess = kgrid ** alpha  # consume income
+
+conguess = np.ones((ksize,nz))
 con = conguess
 
+diff = 7.0
 iter = 1
 while diff > tol and iter < maxiter:
-    new_con = coleman_operator(con, kgrid)
+    new_con = coleman_operator(con)
     diff = (np.absolute(con - new_con)).max()
-    con = new_con
+    
     print('Iteration ', iter, ' distance = ', diff)
     iter += 1
+    con = new_con
 
 pol_con = con
 pol_sav = kgrid - con
