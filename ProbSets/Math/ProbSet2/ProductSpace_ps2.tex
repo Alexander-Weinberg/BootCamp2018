@@ -1,0 +1,422 @@
+\documentclass[letterpaper,12pt]{article}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{geometry}
+\geometry{letterpaper,tmargin=1in,bmargin=1in,lmargin=1.25in,rmargin=1.25in}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{}
+\lfoot{}
+\cfoot{}
+\rfoot{\footnotesize\textsl{Page \thepage\ of \pageref{LastPage}}}
+\renewcommand\headrulewidth{0pt}
+\renewcommand\footrulewidth{0pt}
+\usepackage[format=hang,font=normalsize,labelfont=bf]{caption}
+\usepackage{listings}
+\lstset{frame=single,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{harvard}
+\usepackage{setspace}
+\usepackage{float,color}
+\usepackage[pdftex]{graphicx}
+\usepackage{hyperref}
+\hypersetup{colorlinks,linkcolor=red,urlcolor=blue}
+\theoremstyle{definition}
+
+%\numberwithin{equation}{section}
+\bibliographystyle{aer}
+\newcommand\ve{\varepsilon}
+\newcommand\boldline{\arrayrulewidth{1pt}\hline}
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+\newcommand\inner[2]{\langle #1, #2 \rangle}
+
+\begin{document}
+\title{Math Pset \#2:\\
+Inner Product Spaces}
+\author{Alex Weinberg\footnote{Alberto did most of the Latexing}\\
+OSM Boot Camp 2018} %if necessary, replace with your course title
+
+\maketitle
+
+\vspace{5mm}
+
+\begin{problem}1 ~\\
+WTS: $\inner{x}{y} = \frac{1}{4}(||x+y||^2 - ||x-y||^2)$ \\
+PF:
+\begin{gather*}
+= \frac{1}{4}(\inner{x+y}{x+y} - \inner{x-y}{x-y}) \\
+= \frac{1}{4}(\inner{x}{x+y} + \inner{y}{x+y} -  \inner{x}{x-y} +  \inner{y}{x-y}) \\
+= \frac{1}{4}(\inner{x}{x+y+y-x} + \inner{y}{x+y+x-y}) \\
+= \frac{1}{4}(\inner{x}{2y} + \inner{y}{2x}) \\
+= \frac{1}{4}(2\inner{x}{y} + 2\inner{y}{x}) \\
+= \frac{1}{4}(2\inner{x}{y} + 2\overline{\inner{x}{y}})
+\end{gather*}
+As we are in $\mathbb{R}$, $$= \inner{x}{y}$$
+\end{problem}
+
+\begin{problem}2
+\begin{align*}
+    &(||x+y||^2 - ||x-y||^2 + i||x-iy||^2 - i||x+iy||^2) / 4 =\\
+    &(<x+y,x+y> - <x-y,x-y> + i<x-iy,y-iy> - i<x+iy,x+iy>) / 4 =\\
+    &(2<x,y> + 2<y,x> -2<x,y> +2<y,x>) / 4=\\
+    &<x,y>.
+\end{align*}
+\end{problem}
+
+
+\begin{problem}3
+$<x,x^5> = \int_0^1x^6dx=x^7/7|_0^1=1/7$,
+$||x|| = \int_0^1x^2dx=x^3/3|_0^1=1/3$ and
+$||x^5|| = \int_0^1x^10dx=x^11/11|_0^1=1/11$.
+Therefore $\cos\theta=\sqrt{33}/7$ implies $\theta=34.5$.
+\end{problem}
+
+\begin{problem}4
+(i)
+\begin{align*}
+    ||\cos(t)||=\frac{1}{\pi}\int_{-\pi}^\pi\cos^2(t)dt=
+    \frac{1}{\pi}\left.\frac{\cos(x)\sin(x)-x}{2}\right\lvert_{-\pi}^pi=\frac{\pi}{\pi}=1,
+\end{align*}
+and similarly $||\sin(t)||=1$.
+Also
+\begin{align*}
+    ||\cos(2t)||=\frac{1}{\pi}\int_{-\pi}^\pi\cos^2(2t)dt=
+    \frac{1}{\pi}\left.\frac{\sin(4t)+4t}{8}\right\lvert_{-\pi}^pi=\frac{\pi}{\pi}=1,
+\end{align*}
+and similarly $||\sin(2t)||=1$.
+Therefore the basis is normalized.
+
+The following integrals:
+\begin{align*}
+    <\cos(t),\sin(t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\sin(t)dt=
+    \frac{1}{\pi}\left.\frac{\sin^2(x)}{x}\right\lvert_{-\pi}^pi=0,
+\end{align*}
+
+\begin{align*}
+    <\cos(t),\cos(2t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\cos(2t)dt=
+    \frac{1}{\pi}\left.frac{3\sin(t)-2\sin^3(t)}{3}\right\lvert_{-\pi}^pi=0,
+\end{align*}
+
+\begin{align*}
+    <\cos(t),\sin(2t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\sin(2t)dt=
+    \frac{1}{\pi}\left.frac{-2\cos^3(t)}{3}\right\lvert_{-\pi}^pi=0,
+\end{align*}
+
+\begin{align*}
+    <\cos(2t),\sin(2t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(2t)\sin(2t)dt=
+    \frac{1}{\pi}\left.frac{-\cos^2(2t)}{4}\right\lvert_{-\pi}^pi=0,
+\end{align*}
+
+and so on, shows that $S$ is an orthonormal basis.
+
+(ii)
+\begin{align*}
+    ||t|| = \frac{1}{\pi}\int_{-\pi}^\pi tdt=
+    \frac{1}{\pi}\left.\frac{t^2}{2}\right\lvert_{-\pi}^\pi=0.
+\end{align*}
+
+(iii)
+Since $<x,\cos(3x)>=0$ for any $x\in S$, $\text{proj}_X(\cos(3x))=0$.
+
+(i)
+\begin{align*}
+    &<\sin(t),t>=\sin(t)-t\cos(t)\lvert_{-\pi}^\pi=2\pi,\\
+    &<\cos(t),t>=t\sin(t)-\cos(t)\lvert_{-\pi}^\pi=0,\\
+    &<\cos(2t),t>=(2t\sin(2t)+\cos(2t))/4\lvert_{-\pi}^\pi=0,\ \text{and finally}\\
+    &<\sin(2t),t>\sin\left(2x\right)-2x\cos\left(2x\right)/4\lvert_{-\pi}^\pi=-\pi.
+\end{align*}
+Therefore, $\text{proj}_X(t)=2\pi\sin(t)-\pi\sin(2t)$
+\end{problem}
+
+\begin{problem}9
+A rotation of angle $\theta$ in $\mathbb R^2$ represented as a matrix $R$
+in the standard basis is an orthonormal transformation since
+\[
+    \begin{bmatrix}
+        \cos(\theta) & -\sin(\theta)\\
+        \sin(\theta) & \cos(\theta)
+    \end{bmatrix}^T
+    \begin{bmatrix}
+       \cos(\theta) & -\sin(\theta)\\
+       \sin(\theta) & \cos(\theta)
+    \end{bmatrix} =
+\]
+\[
+    \begin{bmatrix}
+        \cos^2(\theta)+\sin^2(\theta) & 0\\
+        0 & \cos^2(\theta)+\sin^2(\theta)
+    \end{bmatrix} =
+    \begin{bmatrix}
+        1 & 0\\
+        0 & 1
+    \end{bmatrix}.
+ \]
+Similarly, one shows that $RR^T=I$.
+Therefore, a rotation in $\mathbb R^2$ is an orthonormal transformation.
+\end{problem}
+
+\begin{problem}10
+(i)
+Suppose $Q$ represents an orthonormal operator on $\mathbb F^n$.
+Then $<x,y>=<Q(x),Q(y)>$ for each $x,y\in\mathbb F^n$.
+Since $<Q(x),Q(y)> = (Qx)^H(Qy)=x^HQ^HQy$, it equals $x^Hy$ for all $x,y\in\mathbb F^n$
+only if $Q^HQ=I$.
+On the other hand if $Q^HQ=QQ^H=I$, then
+$<Q(x),Q(y)>=(Qx)^H(Qy)=x^HQ^HQy=x^Hy=<x,y>$.
+
+(ii)
+\begin{align*}
+    ||Qx||=\sqrt{<Qx,Qx>}=\sqrt{x^HQ^HQx}=\sqrt{<x,x>}=||x||.
+\end{align*}
+
+(iii)
+If $Q^HQ=QQ^H=I$, then $Q^{-1}=Q^H$.
+Since $(Q^H)^H=Q$, $Q^H$ is also orthonormal:
+\begin{equation*}
+    (Q^H)^HQ^H=QQ^H=I=Q^HQ=Q^H(Q^H)^H.
+\end{equation*}
+
+(iv)
+Let $q_i$ denote the $i^th$ column of $Q$.
+Since $Q$ is orthonormal,
+$(Q^HQ)_{ij}=q_i^Hq_j=<q_i,q_j>$ is $1$ if $i=j$ and $0$ if $i\neq j$.
+Thus, the columns of $Q$ are orthonormal.
+
+(v)
+The matrix
+\[\begin{bmatrix}
+    2 & 0\\
+    0 & 1/2
+\end{bmatrix}\]
+shows that the converse is not true.
+
+(vi)
+\begin{align*}
+    (Q_1Q_2)^HQ_1Q_2=Q_2^HQ_1^HQ_1Q_2=Q_2^HQ_2=I
+\end{align*}
+and
+\begin{align*}
+     Q_1Q_2(Q_1Q_2)^H=Q_1Q_2Q_2^HQ_1^H=Q_1Q_1^H=I.
+\end{align*}
+Therefore, $Q_1Q_2$ is orthonormal.
+\end{problem}
+
+\begin{problem}11
+Fix $N\in\mathbb N$, $N>0$, and suppose $\{x_i\}_{i=1}^N$ is a set of
+linearly dependent vectors in $V$.
+Also, suppose, without loss of generality, that for $2<k<N$,
+$\{x_i\}_{i=1}^{k-1}$ is a linearly independent set and $\{x_i\}_{i=1}^k$ is a linearly dependent set.
+Then $\{q_i\}_{i=1}^{k-1}$ (as they are defined in the book) is also a linearly independent set.
+However, since $x_k\in\text{span}(\{x_i\}_{i=1}^{k-1})$, we have that $q_k=0$.
+Therefore the Gram-Schmidt orthonormalization process brakes down.
+\end{problem}
+
+\begin{problem}16
+(i)
+Let $A\in\mathbb M_{mxn}$ where $\text{rank}(A)=n\leq m$.
+Then there exist orthonormal $Q\in\mathbb M_{mxm}$ and
+upper triangular $R\in\mathbb M_{mxn}$ such that $A=QR$.
+Since $\tilde{Q}=-Q$ is still orthonormal ($-Q(-Q)^H=-Q(-Q^H)=QQ^H=I$
+and similarly one shows $(-Q)^H(-Q)=I$)
+and $\tilde{R}=-R$ is still upper triangular,
+$A=QR=\tilde{Q}\tilde{R}$.
+Therefore QR-decomposition is not unique.
+
+(ii)
+Now take a reduced QR-decomposition $A=\hat{Q}\hat{R}$,
+where $\hat{Q}\in\mathbb M_{mxn}$ is orthonormal and $\hat{R}\in\mathbb M_{nxn}$ is upper triangular.
+Since $A$ has full column rank, $\hat{R}$ has full rank and is therefore nonsingular.
+Then,
+\begin{align*}
+    &A^HAx=A^Hb\ \implies\\
+    &(\hat{Q}\hat{R})^H\hat{Q}\hat{R}x = (\hat{Q}\hat{R})^Hb\ \implies\\
+    &\hat{R}^H\hat{Q}^H\hat{Q}\hat{R}x = \hat{R}^H\hat{Q}^Hb,
+\end{align*}
+and premultiplying both LHS and RHS of the last equation by $\hat{R}^{-1}$ gives
+$\hat{R}x = \hat{Q}^Hb$.
+\end{problem}
+
+\begin{problem}23
+Let $x,y\in V$ and define $v:=-y$.
+Since a norm is nonnegative and satisfies the triangular property,
+$||x||-||v||\leq ||x||+||v||\leq||x+v||$.
+Then our definition of $v$ implies $||x||-||y||=||x||-||-y||\leq||x-y||$.
+Interchanging the role of $x$ and $y$ and using the homogeneity property of norms we have
+$||y||-||x||\leq||y-x||=||-(y-x)||=||x-y||$,
+and the result follows.
+\end{problem}
+
+\begin{problem}24
+(i)
+Since $|f(t)|\geq 0$ for every $t$, so is $\int_a^b|f(t)|dt$.
+In addition, if $f=0$, then $\int_a^b|f(t)|dt=0$.
+On the other hand, if $\int_a^b|f(t)|dt=0$ and $|f(t)|\geq 0$, it must be that
+$|f(t)|=0$ for all t, implying that $f=0$.
+Now take a constant $c\in\mathbb F$, then
+$\int_a^b|cf(t)|dt=\int_a^b|c||f(t)|dt=|c|\int_a^b|f(t)|dt$,
+since $c$ does not depend on $t$.
+Finally, take $g\in C([a, b]; \mathbb F)$.
+Since $|f(t)+g(t)|\leq|f(t)|+|g(t)|$ for all $t$ and the integral is a linear operator,
+we have that $\int_a^b|f(t)+g(t)|dt\leq\int_a^b|f(t)|dt + \int_a^b|g(t)|dt$.
+
+(ii)
+Since $|f(t)|^2\geq 0$ for every $t$, so is $\int_a^b|f(t)|^2dt$ and its square root.
+In addition, if $f=0$, then $|f(t)|^2=0$ for all $t$ and $\sqrt{\int_a^b|f(t)|^2dt}=0$.
+On the other hand, if $\sqrt{\int_a^b|f(t)|^2dt}=0$,
+then $\int_a^b|f(t)|^2dt=0$ and since $|f(t)|^2\geq 0$ for all $t$,
+it must be that $|f(t)|^2=0$ for all t, implying that $f=0$.
+Now take a constant $c\in\mathbb F$, then
+$\sqrt{\int_a^b|cf(t)|^2dt}=\sqrt{\int_a^b|c|^2|f(t)|^2dt}=|c|\sqrt{\int_a^b|f(t)|^2dt}$,
+since $c$ does not depend on $t$.
+Finally, take $g\in C([a, b]; \mathbb F)$.
+Since $|f(t)+g(t)|\leq|f(t)|+|g(t)|$ for all $t$,
+$x\mapsto x^2$ and $x\mapsto\sqrt{x}$ are monotonically increasing for nonnegative $x$
+and the integral is a linear operator,
+we have that $\sqrt{\int_a^b|f(t)+g(t)|^2dt}\leq\sqrt{\int_a^b|f(t)|^2dt + \int_a^b|g(t)|^2dt}
+\leq||f||_{L2}+||g||_{L2}$.
+
+(iii)
+Since $|f(x)|\geq 0$ for all $x$, so is the $\sup_{x\in[a, b]}|f(x)|$.
+In addition, if $f=0$, then $\sup_{x\in[a, b]}|f(x)|$ is also zero.
+On the other hand, since $|f(x)|\geq 0$ for all $x$, $0\leq\sup_{x\in[a, b]}|f(x)|=0$
+implies that we must have $f=0$.
+Now take a constant $c\in\mathbb F$, then
+$\sup_{x\in[a, b]}|cf(x)|=\sup_{x\in[a, b]}|c||f(x)|=|c|\sup_{x\in[a, b]}|f(x)|$.
+Finally, take $g\in C([a, b];\mathbb F)$.
+Since $|f(x)+g(x)|\leq|f(x)|+|g(x)|$ for all $x$, we have that
+$\sup_{x\in[a, b]}|f(x)+g(x)|\leq\sup_{x\in[a, b]}\{|f(x)|+|g(x)|\}
+\leq\sup_{x\in[a, b]}|f(x)|+\sup_{x\in[a, b]}|g(x)|$.
+\end{problem}
+
+\begin{problem}26
+We show that topological equivalence is an equivalence relation.
+Let $||\cdot||_r$ be a norm on $X$ for $r\in\{a, b, c\}$.
+Clearly $||\cdot||_r$ is in topologically equivalent with itself,
+just pick any $0<m\leq 1$ and any $M\geq 1$ to show this.
+Also, suppose that $||\cdot||_a$ is topologically equivalent to $||\cdot||_b$
+with constants $0<m\leq M$.
+Then, $||\cdot||_b$ is topologically equivalent to $||\cdot||_a$ with constants
+$0<1/M'\leq 1/m'$.
+Finally, if $||\cdot||_a$ is topologically equivalent to $||\cdot||_b$ with constants
+$0<m\leq M$ and so is $||\cdot||_b$ with $||\cdot||_c$ with constants $0<m'\leq M'$,
+then $||\cdot||_a$ is topologically equivalent to $||\cdot||_b$ with constants
+$0<mm'\leq MM'$.
+
+Take $x\in\mathbb R^n$
+Notice that
+\begin{equation*}
+    \sum_{i=1}^n|x_i|^2\leq
+    \left(\sum_{i=1}^n|x_i|^2+2\sum_{i\neq j}|x_i||x_j|\right)=
+    \left(\sum_{i=1}^n|x_i|\right)^2
+\end{equation*}
+and that
+\begin{equation*}
+    \sum_{i=1}^n|x_i|\cdot1\leq
+    \left(\sum_{i=1}^n|x_i|^2\right)^{1/2}\left(\sum_{i=1}^n1^2\right)^{1/2}=
+    \sqrt{n}\left(\sum_{i=1}^n|x_i|^2\right)^{1/2}
+\end{equation*}
+prove that $||x||_2\leq||x||_1\leq\sqrt{n}||x||_2$.
+
+Also notice that
+\begin{equation*}
+    \max_{i}|x_i|=\left(\max_i|x_i|^2\right)^{1/2}\leq
+    \left(\sum_{i=1}^n|x_i|^2\right)^{1/2}=
+\end{equation*}
+and
+\begin{equation*}
+    \sum_{i=1}^n|x_i|^2\leq n\cdot\max_i|x_i|^2
+\end{equation*}
+prove that $||x||_\infty\leq||x||_2\leq \sqrt{n}||x||_\infty$.
+\end{problem}
+
+\begin{problem}28
+(i)
+Notice that (applying the results of the previous exercise)
+\begin{align*}
+    \sup_{x\neq 0}\frac{||Ax||_1}{||x||_1}\leq
+    \sup_{x\neq 0}\frac{||Ax||_1}{||x||_1}\leq
+    \sqrt{n}\sup_{x\neq 0}\frac{||Ax||_2}{||x||_2},
+\end{align*}
+and
+\begin{align*}
+    \sup_{x\neq 0}\frac{||Ax||_1}{||x||_1}\geq
+    \sup_{x\neq 0}\frac{||Ax||_2}{||x||_1}\geq
+    \frac{1}{\sqrt{n}}\sup_{x\neq 0}\frac{||Ax||_2}{||x||_2}
+\end{align*}
+imply that $\frac{1}{\sqrt{n}}||A||_2\leq||A||_1\leq||A||_2$.
+
+(ii)
+Notice that
+\begin{equation*}
+    \sup_{x\neq 0}\frac{||Ax||_2}{||x||_2}\leq
+    \sup_{x\neq 0}\frac{\sqrt{n}||Ax||_\infty}{||x||_\infty},
+\end{equation*}
+and
+\begin{equation*}
+    \sup_{x\neq 0}\frac{||Ax||_2}{||x||_2}\geq
+    \sup_{x\neq 0}\frac{||Ax||_\infty}{\sqrt{n}||x||_\infty}.
+\end{equation*}
+\end{problem}
+
+
+\begin{problem}29
+Take an arbitrary $x\neq 0$ and suppose $||\cdot||$ is an inner product induced norm.
+Since
+\begin{equation*}
+    ||Qx||=\left(<Qx,Qx>\right)^{1/2}=
+    \left(<Q^HQx,x>\right)^{1/2}=
+    \left(<x,x>\right)^{1/2}=
+    ||x||,
+\end{equation*}
+then
+\begin{equation*}
+    ||Q||=\sup_{x\neq 0}\frac{||Qx||}{||x||}=1.
+\end{equation*}
+
+Now let $R_x:\mathbb M_n(\mathbb F)\to\mathbb F^n, A\mapsto Ax$ for every $x\in\mathbb F^n$.
+Notice that
+\begin{equation*}
+    ||R_x||=\sup_{A\neq 0}\frac{||Ax||}{||A||}=
+    \sup_{A\neq 0}\frac{||Ax||||x||}{||A||||x||}\leq
+    \sup_{A\neq 0}\left(\frac{||Ax||||x||}{||Ax||}\right)=
+    ||x||.
+\end{equation*}
+\end{problem}
+
+\begin{problem}30
+Take an arbitrary $A\in\mathbb M_n(\mathbb F)$.
+First, $||A||_S=||SAS^{-1}||\geq 0$ for any $A$ because
+$||\cdot||$ is a norm on $\mathbb M_n(\mathbb F)$ and
+$SAS^{-1}\in\mathbb M_n(\mathbb F)$.
+In addition, $||0||_S=||S0S^-1||=||0||=0$ and if
+$0=||A||_S=||SAS^{-1}||$, then $SAS^{-1}=0$ which implies $A=0$.
+Second, take $a\in\mathbb F$, then
+\begin{equation*}
+    ||aA||_S=||SaAS^{-1}||=
+    ||aSAS^{-1}||=|a|||SAS^{-1}||=
+    |a|||A||_S.
+\end{equation*}
+Finally, let $B\in\mathbb M_n(\mathbb F)$ and notice that
+\begin{equation*}
+    ||A+B||_S=||S(A+B)S^{-1}||=
+    ||SAS^{-1}+SBS^{-1}||\leq||SAS^{-1}||+||SBS^{-1}||=
+    ||A||_S+||B||_S.
+\end{equation*}
+Therefore $||\cdot||_S$ is a norm on $\mathbb M_n(\mathbb F)$.
+\end{problem}
+
+\end{document}
