@@ -105,7 +105,6 @@ The following integrals:
     <\cos(t),\sin(t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\sin(t)dt=
     \frac{1}{\pi}\left.\frac{\sin^2(x)}{x}\right\lvert_{-\pi}^pi=0,
 \end{align*}
-\newpage
 \begin{align*}
     <\cos(t),\cos(2t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\cos(2t)dt=
     \frac{1}{\pi}\left.frac{3\sin(t)-2\sin^3(t)}{3}\right\lvert_{-\pi}^pi=0,
@@ -249,20 +248,22 @@ Therefore $\tilde{R}^{-1}R=I$ and, by unicity of the inverse, we conclude that $
 and so $Q=\tilde{Q}$.
 
 \end{problem}
-\begin{problem}{17}~\\
-Take a reduced QR-decomposition $A=\hat{Q}\hat{R}$,
-where $\hat{Q}\in\mathbb M_{mxn}$ is orthonormal and $\hat{R}\in\mathbb M_{nxn}$ is upper triangular.
-Since $A$ has full column rank, $\hat{R}$ has full rank and is therefore nonsingular.
-Then,
-\begin{align*}
-    &A^HAx=A^Hb\ \implies\\
-    &(\hat{Q}\hat{R})^H\hat{Q}\hat{R}x = (\hat{Q}\hat{R})^Hb\ \implies\\
-    &\hat{R}^H\hat{Q}^H\hat{Q}\hat{R}x = \hat{R}^H\hat{Q}^Hb,
-\end{align*}
-and premultiplying both LHS and RHS of the last equation by $\hat{R}^{-1}$ gives
-$\hat{R}x = \hat{Q}^Hb$.
 
+\begin{problem}{17}~\\
+Suppose, $A = \hat{Q}\hat{R}$ is reduced. \\
+WTS: $$ A^TAx = A^Tb \iff \hat{R}x = \hat{Q^T}b
+$$
+PF:
+\begin{align*}
+    (A^TA)x=A^Tb\ \\
+    \implies (\hat{R^T}\hat{Q^T}\hat{Q}\hat{R})x =  A^Tb\\
+    \implies \hat{R^T}\hat{R}x = A^Tb\\
+    \implies \hat{R^T}\hat{R}x = (\hat{Q}\hat{R})^Tb\\
+    \implies \hat{R^T}\hat{R}x = \hat{R^T}\hat{Q^T}b\\
+    \implies \hat{R}x = \hat{Q^T}b \qed
+\end{align*}
 \end{problem}
+
 \begin{problem}{23}
 Let $x,y\in V$ and define $v:=-y$.
 Since a norm is nonnegative and satisfies the triangular property,
@@ -433,15 +434,21 @@ To show that it is a matrix norm, notice that
 \end{align*}
 and so $||AB||_S\leq||A||_S||B||_S$.
 
-\end{problem} \begin{problem}{37}
-Since $V:=\mathbb R[x; 2]$ is isomorphic to $\mathbb R^3$,
-we can represent an arbitrary element $p\in V$, $p=ax^2+bx+c$,
-as a vector on $\mathbb R^3$, $p=(a, b, c)$.
-Then we need to find a vector $q=(a', b', c')$ such that
-$p'q=2a+b=p'(1)=L[p]$.
-Thus, $q=(2, 1, 0)$.
+\end{problem}
+\begin{problem}{37}~\\
+FIND: q s.t.
+$p'q= L[p] = p'(1)$ \\
+$p$ can be written as
+\begin{align*}
+p(x) = a_0 +a_1x + a_2x^2. \\
+\implies p = [1 \quad x_1 \quad x_2^2][a_0 \quad a_1 \quad a_2]^T \\
+\implies p'(1) = a_1 + 2a_2 \\
+\iff [a_0 \quad a_1 \quad a_2][0 \quad 1 \quad 2]^T
+\end{align*}
+So choose q = $[0 \quad 1 \quad 2]^T \qed$
 
-\end{problem} \begin{problem}{38}
+\end{problem}
+\begin{problem}{38}
 Let $p=ax^2+vx+c$ be an arbitrary element of $V=\mathbb F[x;2]$.
 Since we can represent $p=(a, b, c)^T$, and $p'=D(p)=(0,2a,b)^T$,
 we that the matrix representation of $D$ is
