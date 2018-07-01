@@ -85,7 +85,7 @@ $||x^5|| = \int_0^1x^10dx=x^11/11|_0^1=1/11$.
 Therefore $\cos\theta=\sqrt{33}/7$ implies $\theta=34.5$.
 \end{problem}
 
-\begin{problem}4
+\begin{problem}8~\\
 (i)
 \begin{align*}
     ||\cos(t)||=\frac{1}{\pi}\int_{-\pi}^\pi\cos^2(t)dt=
@@ -105,7 +105,7 @@ The following integrals:
     <\cos(t),\sin(t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\sin(t)dt=
     \frac{1}{\pi}\left.\frac{\sin^2(x)}{x}\right\lvert_{-\pi}^pi=0,
 \end{align*}
-
+\newpage
 \begin{align*}
     <\cos(t),\cos(2t)> = \frac{1}{\pi}\int_{-\pi}^\pi\cos(t)\cos(2t)dt=
     \frac{1}{\pi}\left.frac{3\sin(t)-2\sin^3(t)}{3}\right\lvert_{-\pi}^pi=0,
@@ -125,14 +125,15 @@ and so on, shows that $S$ is an orthonormal basis.
 
 (ii)
 \begin{align*}
-    ||t|| = \frac{1}{\pi}\int_{-\pi}^\pi tdt=
-    \frac{1}{\pi}\left.\frac{t^2}{2}\right\lvert_{-\pi}^\pi=0.
+    ||t|| = \sqrt{\frac{1}{\pi}\int_{-\pi}^\pi t^2dt}=
+    \frac{1}{\sqrt{\pi}}\sqrt{\pi^3/3+\pi^3/3}=
+    \pi\sqrt{2/3}.
 \end{align*}
 
 (iii)
 Since $<x,\cos(3x)>=0$ for any $x\in S$, $\text{proj}_X(\cos(3x))=0$.
 
-(i)
+(iv)
 \begin{align*}
     &<\sin(t),t>=\sin(t)-t\cos(t)\lvert_{-\pi}^\pi=2\pi,\\
     &<\cos(t),t>=t\sin(t)-\cos(t)\lvert_{-\pi}^\pi=0,\\
@@ -140,9 +141,9 @@ Since $<x,\cos(3x)>=0$ for any $x\in S$, $\text{proj}_X(\cos(3x))=0$.
     &<\sin(2t),t>\sin\left(2x\right)-2x\cos\left(2x\right)/4\lvert_{-\pi}^\pi=-\pi.
 \end{align*}
 Therefore, $\text{proj}_X(t)=2\pi\sin(t)-\pi\sin(2t)$
-\end{problem}
 
-\begin{problem}9
+\end{problem}
+\begin{problem}9~\\
 A rotation of angle $\theta$ in $\mathbb R^2$ represented as a matrix $R$
 in the standard basis is an orthonormal transformation since
 \[
@@ -167,9 +168,9 @@ in the standard basis is an orthonormal transformation since
  \]
 Similarly, one shows that $RR^T=I$.
 Therefore, a rotation in $\mathbb R^2$ is an orthonormal transformation.
-\end{problem}
 
-\begin{problem}10
+\end{problem}
+\begin{problem}{10}~\\
 (i)
 Suppose $Q$ represents an orthonormal operator on $\mathbb F^n$.
 Then $<x,y>=<Q(x),Q(y)>$ for each $x,y\in\mathbb F^n$.
@@ -213,9 +214,9 @@ and
      Q_1Q_2(Q_1Q_2)^H=Q_1Q_2Q_2^HQ_1^H=Q_1Q_1^H=I.
 \end{align*}
 Therefore, $Q_1Q_2$ is orthonormal.
-\end{problem}
 
-\begin{problem}11
+\end{problem}
+\begin{problem}{11}~\\
 Fix $N\in\mathbb N$, $N>0$, and suppose $\{x_i\}_{i=1}^N$ is a set of
 linearly dependent vectors in $V$.
 Also, suppose, without loss of generality, that for $2<k<N$,
@@ -223,9 +224,9 @@ $\{x_i\}_{i=1}^{k-1}$ is a linearly independent set and $\{x_i\}_{i=1}^k$ is a l
 Then $\{q_i\}_{i=1}^{k-1}$ (as they are defined in the book) is also a linearly independent set.
 However, since $x_k\in\text{span}(\{x_i\}_{i=1}^{k-1})$, we have that $q_k=0$.
 Therefore the Gram-Schmidt orthonormalization process brakes down.
-\end{problem}
 
-\begin{problem}16
+\end{problem}
+\begin{problem}{16}~\\
 (i)
 Let $A\in\mathbb M_{mxn}$ where $\text{rank}(A)=n\leq m$.
 Then there exist orthonormal $Q\in\mathbb M_{mxm}$ and
@@ -237,7 +238,19 @@ $A=QR=\tilde{Q}\tilde{R}$.
 Therefore QR-decomposition is not unique.
 
 (ii)
-Now take a reduced QR-decomposition $A=\hat{Q}\hat{R}$,
+Suppose now that $A$ is invertible and can be decomposed into
+two different QR decompositions: $QR$ and $\tilde{Q}\tilde{R}$,
+where the diagonal entries of $R$ and $\tilde{R}$ are strictly positive.
+Then both $R$ and $\tilde{R}$ are invertible and we conclude that
+$\tilde{R}^{-1}R=Q^H\tilde{Q}$.
+Since $R$ and $\tilde{R}$ are upper triangular, so is the LHS of the previous equation.
+On the other hand, since $Q$ and $\tilde{Q}$ are orthonormal, so is the RHS.
+Therefore $\tilde{R}^{-1}R=I$ and, by unicity of the inverse, we conclude that $R=\tilde{R}$,
+and so $Q=\tilde{Q}$.
+
+\end{problem}
+\begin{problem}{17}~\\
+Take a reduced QR-decomposition $A=\hat{Q}\hat{R}$,
 where $\hat{Q}\in\mathbb M_{mxn}$ is orthonormal and $\hat{R}\in\mathbb M_{nxn}$ is upper triangular.
 Since $A$ has full column rank, $\hat{R}$ has full rank and is therefore nonsingular.
 Then,
@@ -248,9 +261,9 @@ Then,
 \end{align*}
 and premultiplying both LHS and RHS of the last equation by $\hat{R}^{-1}$ gives
 $\hat{R}x = \hat{Q}^Hb$.
-\end{problem}
 
-\begin{problem}23
+\end{problem}
+\begin{problem}{23}
 Let $x,y\in V$ and define $v:=-y$.
 Since a norm is nonnegative and satisfies the triangular property,
 $||x||-||v||\leq ||x||+||v||\leq||x+v||$.
@@ -258,9 +271,8 @@ Then our definition of $v$ implies $||x||-||y||=||x||-||-y||\leq||x-y||$.
 Interchanging the role of $x$ and $y$ and using the homogeneity property of norms we have
 $||y||-||x||\leq||y-x||=||-(y-x)||=||x-y||$,
 and the result follows.
-\end{problem}
 
-\begin{problem}24
+\end{problem} \begin{problem}{24}
 (i)
 Since $|f(t)|\geq 0$ for every $t$, so is $\int_a^b|f(t)|dt$.
 In addition, if $f=0$, then $\int_a^b|f(t)|dt=0$.
@@ -300,9 +312,8 @@ Finally, take $g\in C([a, b];\mathbb F)$.
 Since $|f(x)+g(x)|\leq|f(x)|+|g(x)|$ for all $x$, we have that
 $\sup_{x\in[a, b]}|f(x)+g(x)|\leq\sup_{x\in[a, b]}\{|f(x)|+|g(x)|\}
 \leq\sup_{x\in[a, b]}|f(x)|+\sup_{x\in[a, b]}|g(x)|$.
-\end{problem}
 
-\begin{problem}26
+\end{problem} \begin{problem}{26}
 We show that topological equivalence is an equivalence relation.
 Let $||\cdot||_r$ be a norm on $X$ for $r\in\{a, b, c\}$.
 Clearly $||\cdot||_r$ is in topologically equivalent with itself,
@@ -341,9 +352,8 @@ and
     \sum_{i=1}^n|x_i|^2\leq n\cdot\max_i|x_i|^2
 \end{equation*}
 prove that $||x||_\infty\leq||x||_2\leq \sqrt{n}||x||_\infty$.
-\end{problem}
 
-\begin{problem}28
+\end{problem} \begin{problem}{28}
 (i)
 Notice that (applying the results of the previous exercise)
 \begin{align*}
@@ -370,10 +380,8 @@ and
     \sup_{x\neq 0}\frac{||Ax||_2}{||x||_2}\geq
     \sup_{x\neq 0}\frac{||Ax||_\infty}{\sqrt{n}||x||_\infty}.
 \end{equation*}
-\end{problem}
 
-
-\begin{problem}29
+\end{problem} \begin{problem}{29}
 Take an arbitrary $x\neq 0$ and suppose $||\cdot||$ is an inner product induced norm.
 Since
 \begin{equation*}
@@ -395,10 +403,10 @@ Notice that
     \sup_{A\neq 0}\left(\frac{||Ax||||x||}{||Ax||}\right)=
     ||x||.
 \end{equation*}
-\end{problem}
 
-\begin{problem}30
-Take an arbitrary $A\in\mathbb M_n(\mathbb F)$.
+
+\end{problem} \begin{problem}{30}
+Take arbitrary matrices $A,B\in\mathbb M_n(\mathbb F)$.
 First, $||A||_S=||SAS^{-1}||\geq 0$ for any $A$ because
 $||\cdot||$ is a norm on $\mathbb M_n(\mathbb F)$ and
 $SAS^{-1}\in\mathbb M_n(\mathbb F)$.
@@ -417,6 +425,271 @@ Finally, let $B\in\mathbb M_n(\mathbb F)$ and notice that
     ||A||_S+||B||_S.
 \end{equation*}
 Therefore $||\cdot||_S$ is a norm on $\mathbb M_n(\mathbb F)$.
+To show that it is a matrix norm, notice that
+\begin{align*}
+    ||AB||_S=||SABS^{-1}||=
+    ||SAS^{-1}ABS^{-1}||\leq
+    ||SAS^{-1}||||SBS^{-1}||,
+\end{align*}
+and so $||AB||_S\leq||A||_S||B||_S$.
+
+\end{problem} \begin{problem}{37}
+Since $V:=\mathbb R[x; 2]$ is isomorphic to $\mathbb R^3$,
+we can represent an arbitrary element $p\in V$, $p=ax^2+bx+c$,
+as a vector on $\mathbb R^3$, $p=(a, b, c)$.
+Then we need to find a vector $q=(a', b', c')$ such that
+$p'q=2a+b=p'(1)=L[p]$.
+Thus, $q=(2, 1, 0)$.
+
+\end{problem} \begin{problem}{38}
+Let $p=ax^2+vx+c$ be an arbitrary element of $V=\mathbb F[x;2]$.
+Since we can represent $p=(a, b, c)^T$, and $p'=D(p)=(0,2a,b)^T$,
+we that the matrix representation of $D$ is
+\begin{equation*}
+    D = \begin{bmatrix}
+        0 & 0 & 0\\
+        2 & 0 & 0\\
+        0 & 1 & 0
+    \end{bmatrix},
+\end{equation*}
+and the hermitian is just the transpose
+\begin{equation*}
+    D = \begin{bmatrix}
+        0 & 2 & 0\\
+        0 & 0 & 1\\
+        0 & 0 & 0
+    \end{bmatrix}.
+\end{equation*}
+
+\end{problem} \begin{problem}{39}
+(i)
+By definition of adjoint and linearity of inner products,
+\begin{align*}
+    &<(S+T)^*w,v>_V=
+    <w,(S+T)v>_W=\\
+    &<w,Sv+Tv>_W=
+    <w,Sv>_W+<w,Tv>_W=\\
+    &<S^*w,v>_V + <T^*w,v>_V=
+    <S^*w+T^*w,v>_V.
+\end{align*}
+Then $(S+T)^*=S^*+T^*$.
+Also,
+\begin{align*}
+    &<(\alpha T)^*w,v>_V=
+    <w,(\alpha T)v>_W=\\
+    &<w,\alpha Tv>_W=
+    \alpha<w, Tv>=\\
+    &\alpha<T^*w,v>=
+    <\bar{\alpha}T^*w,v>,
+\end{align*}
+thus $(\alpha T)^*=\bar{\alpha}T$.
+
+(ii)
+By the definition of adjoint of $S$ and the properties of inner products we have that
+\begin{align*}
+    <w,Sv>_W=<S^*w,v>_V=
+    \overline{<v,S^*w>_V}=\overline{<S^{**}v,w>_W}=
+    <w,S^{**}v>_W
+\end{align*}
+for all $v\in V$ and $w\in W$.
+Therefore $S=S**$.
+
+(iii)
+By the definition of adjoint we have
+\begin{align*}
+    &<(ST)^*v',v>_V=<v',(ST)v>_V=<v',S(Tv)>_V=\\
+    &<S^*v',Tv>_V=<T*S*v',v>_V,
+\end{align*}
+thereby proving that $(ST)^*=T^*S^*$.
+
+(iv)
+Using (iii) we have $T^*(T^*)^{-1}=(TT^{-1})^*=I^*=I$.
+
+\end{problem} \begin{problem}{40}
+(i)
+Let $B,C\in\mathbb M_n(\mathbb F)$.
+By definition of Frobenious inner product
+\begin{align*}
+    <B,AC>_F=\text{tr}(B^HAC)=\text{tr}((A^HB)^HC)=<A^HB,C>_F.
+\end{align*}
+
+(ii)
+By definition of Frobenious norm and the properties of the trace we have
+\begin{align*}
+    <A_2,A_3A_1>_F=\text{tr}(A_2^HA_3A_1)=
+    \text{tr}(A_1A_2^HA_3)=\text{tr}((A_2A_1^H)^HA_3)=
+    <A_2A_1^H,A_3>_F=<A_2A_1^*,A_3>.
+\end{align*}
+
+(iii)
+Given $B,C\in\mathbb M_n(\mathbb F)$, we have $<B,AC-CA>=<B,AC>-<B,CA>$.
+Applying (ii) to the second term we get $<B,CA>=<BA^*,C>$.
+On the other hand,
+\begin{equation*}
+    <B,AC>=\text{tr}(B^HAC)=\text{tr}((A^HB)^HC)=<A^HB,C>=<A^*B,C>.
+\end{equation*}
+Putting all together we obtain that $T_A^*=T_{A^*}$.
+
+\end{problem} \begin{problem}{44}
+Suppose there exists an $x\in\mathbb F^n$ such that $Ax=b$.
+Then, for every $y\in\mathcal N(A^H)$,
+$$<y,b>=<y,Ax>=<A^Hy,x>=<0,x>=0.$$
+Now suppose that there exists a $y\in\mathcal N(A^H)$ such that $<y,b>\neq0$.
+Then $b\notin\mathcal N(A^H)^\perp=\mathcal R(A)$.
+Therefore for no $x\in\mathbb F^n$, $Ax=b$.
+
+\end{problem} \begin{problem}{45}
+Let $A\in\text{Sym}_n(\mathbb R)$ and $B\in\text{Skew}_n(\mathbb R)$.
+Then
+\begin{align*}
+    <B,A>=\text{Tr}(B^TA)=\text{Tr}(AB^T)=
+    \text{Tr}(A^T(-B))=-<A,B>.
+\end{align*}
+We conclude that $<A,B>=0$ and $\text{Skew}_n(\mathbb R)\subset\text{Sym}_n(\mathbb R)^\perp$.
+Now suppose $B\in\text{Sym}_n(\mathbb R)^\perp$.
+As for any other matrix, $B+B^T\in\text{Sym}_n(\mathbb R)$.
+Thus,
+\begin{align*}
+    0 = <B+B^T,B>=\text{Tr}((B+B^T)B) =\text{Tr}(BB + B^TB)=
+    \text{Tr}(BB)+\text{Tr}(B^TB),
+\end{align*}
+which implies $<B^T,B>=<-B,B>$ and so $B^T=-B$.
+Therefore $\text{Sym}_n(\mathbb R)^\perp=\text{Skew}_n(\mathbb R)$.
+
+\end{problem} \begin{problem}{46}
+(i)
+if $x\in\mathcal N(A^HA)$, $0=(A^HA)x=A^H(Ax)$ and $Ax\in\mathcal N(A^H)$.
+Also, $Ax$ is in the range of $A$ by definition.
+
+(ii)
+Suppose $x\in\mathcal N(A)$.
+Then $Ax=0$.
+Premultiplying by $A^H$ both sides of the equation we obtain $A^HAx=A^H0=0$
+and so $x\in\mathcal N(A^HA)$.
+On the other hand, suppose $x\in\mathcal N(A^HA)$.
+Then $||Ax||=x^HA^HAx=x^H0=0$, so that $Ax=0$ and $x\in\mathcal N(A)$
+
+(iii)
+By the rank-nullity theorem we have $n=\text{Rank}(A)+\text{Dim}\mathcal N(A)$
+and $n=\text{Rank}(A^HA)+\text{Dim}\mathcal N(A^HA)$.
+Then by (ii) it follows that $\text{Rank}(A)=\text{Rank}(A^HA)$.
+
+(iv)
+By (iii) and the assumption on $A$ we have that $n=\text{Rank}(A)=\text{Rank}(A^HA)$.
+Since $A^HA\in\mathbb M_n$, it is nonsingular.
+
+\end{problem} \begin{problem}{47}
+(i)
+Notice that
+\begin{align*}
+    P^2=(A(A^HA)^{-1}A^H)(A(A^HA)^{-1}A^H)=
+    A(A^HA)^{-1}A^HA(A^HA)^{-1}A^H=
+    A(A^HA)^{-1}A^H=P.
+\end{align*}
+
+(ii)
+Notice that
+\begin{align*}
+    P^H=(A(A^HA)^{-1}A^H)^H=
+    (A^H)^H(A^HA)^{-H}A^H=A(A^HA)^{-1}A^H=P.
+\end{align*}
+
+(iii)
+$A$ has rank $n$, therefore $P$ has at most rank $n$.
+Take $y$ in the range of $A$.
+Then there exists an $x\in\mathbb F^n$ such that $y=Ax$.
+Then
+\begin{align*}
+    Py=A(A^HA)A^Hy=A(A^HA)^{-1}A^HAx=Ax=y
+\end{align*}
+shows that $y$ is also in the range of $P$.
+Therefore $\text{Rank}(P)\geq\text{Rank}(A)$ and so $P$ has rank $p$
+
+\end{problem} \begin{problem}{48}
+(i)
+Let $A,B\in\mathbb M_n(\mathbb R)$ and $x\in\mathbb R$.
+Then
+\begin{align*}
+    P(A+xB)=\frac{(A+xB)+(A+xB)^T}{2}=
+    \frac{A+A^T+x(B+B^T)}{2}=P(A)+xP(B).
+\end{align*}
+Thus $P$ is a linear transformation.
+
+(ii)
+Now notice that
+\begin{align*}
+    P^2(A)=\frac{\frac{A+A^T}{2}+\frac{A^T+A}{2}}{2}=
+    \frac{\frac{2A+2A^T}{2}}{2}=\frac{2A+2A^T}{2}=P(A).
+\end{align*}
+
+(iii)
+By definition of adjoint we have $<P^*(A),B>=<A,P(B)>$.
+Then, notice that
+\begin{align*}
+    &<A,P(B)>=<A,(B+B^T)/2>=
+    <A,B/2>+<A,B^T/2>=\\
+    &\text{Tr}(A^TB/2)+\text{Tr}(A^TB^T/2)=
+    \text{Tr}(A^T/2B)+\text{Tr}(BA/2)=\\
+    &\text{Tr}(A^T/2B)+\text{Tr}(A/2B)=
+    <(A+A^T)/2,B>=<P(A),B>.
+\end{align*}
+Thus $P=P^*$.
+
+(iv)
+Suppose $A\in\mathcal N(P)$.
+Then $0=P(A)=(A+A^T)/2$ implies $A^T=-A$, thus $\mathcal N(P)\subset\text{Skew}(\mathbb R)$.
+Now suppose $A\in\text{Skew}(\mathbb R)$.
+Then $A^T=-A$ and so $P(A)=(A+A^T)/2=0$. Thus $\text{Skew}(\mathbb R)\subset\mathcal N(P)$.
+
+(v)
+Let $A\in\mathbb M_n(\mathbb R)$.
+Then $P(A)=(A+A^T)/2=(A^T+A)/2=P(A)^T$ and so $\mathcal R(P)=\text{Sym}(\mathbb R)$.
+Now let $A=\text{Sym}(\mathbb R)$.
+Thus $A=A^T$ and $P(A)=(A+A^T)/2=(A+A)/2=A$ and so $A\in\mathcal R(P)$.
+This shows that $\mathcal R(P)=\text{Sym}(\mathbb R)$.
+
+(vi)
+Notice that
+\begin{align*}
+    &||A - P(A)||_F^2 = <A - P(A), A - P(A)> =
+    <A - \frac{A + A^T}{2}, A - \frac{A + A^T}{2}> =\\
+    &<\frac{A - A^T}{2}, \frac{A - A^T}{2}> =
+    \text{Tr}\left(\left(\frac{A - A^T}{2}\right)^T\frac{A - A^T}{2}\right)=\\
+    &\text{Tr}\left(\frac{A^T - A}{2}\frac{A - A^T}{2}\right) =
+    \text{Tr}\left(\frac{A^TA - A^2 - (A^T)^2 + AA^T}{4}\right) =\\
+    &\text{Tr}\left(\frac{A^TA - A^2 - A^2 + A^TA}{4}\right) =
+    \text{Tr}\left(\frac{A^TA - A^2}{2}\right) =
+    \frac{\text{Tr}(A^TA) - \text{Tr}(A^2)}{2}.
+\end{align*}
+Therefore $||A - P(A)||_F = \sqrt{\frac{\text{Tr}(A^TA) - \text{Tr}(A^2)}{2}}$.
+
+\end{problem} \begin{problem}{50}
+We want to estimate $y^2=1/s+rx^2/s$ via OLS.
+We rewrite the model in the form $Ax=b$ where
+$b_i=y_i^2$, $A_i=(1\ x_i)$ and $x=(\beta_1\ \beta_2)^T$ where $\beta_1=1/s$ and $\beta_2=r/s$.
+Then the normal equations are $A^HA\hat{x}=A^Hb$, where
+\begin{align*}
+    A^HA\hat{x} =
+    \begin{bmatrix}
+        \sum_i 1 & \sum_ix_i^2\\
+        \sum_ix_i^2& \sum_ix_i^4
+    \end{bmatrix}
+    \begin{bmatrix}
+        \hat{\beta}_1\\ \hat{\beta}_2
+    \end{bmatrix} =
+    \begin{bmatrix}
+        n\hat{\beta}_1 - \hat{\beta}_2\sum_i x_i^2\\
+        \hat{\beta}_1\sum_ix_i^2 - \hat{\beta}_2\sum_ix_i^4
+    \end{bmatrix}
+\end{align*}
+and
+\begin{align*}
+    A^Hb=
+    \begin{bmatrix}
+        \sum_i y_i^2\\
+        \sum_i x_i^2y_i^2
+    \end{bmatrix}.
+\end{align*}
 \end{problem}
 
 \end{document}
