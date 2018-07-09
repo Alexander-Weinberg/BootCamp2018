@@ -23,13 +23,13 @@
 %\numberwithin{equation}{section}
 \title{Math Pset 3:\\
        Spectral Theory}
-\author{Alex Weinberg\\
+\author{Alex Weinberg \\
         OSM Boot Camp 2018}
 
 
 \begin{document}
 
-\maketitle
+\maketitle \footnote{Thank you to Matt for his beautiful LATEX}
 
 
 \begin{problem}{2} Find the eigenvalues of D[p](x) = p'(x)
@@ -42,7 +42,7 @@
     0 & 0 & 0 \\
     \end{bmatrix}
     \]
-    So, \[ p_A(\lambda) = 
+    So, \[ p_A(\lambda) =
    \begin{bmatrix}
     \lambda & 0 & 0 \\
     0 & \lambda & 0 \\
@@ -64,13 +64,341 @@ det(p_D(\lambda)) = \lambda^3 =0 \iff \lambda=0
 \]
 \end{proof}
 
-\begin{problem}{4}
-\begin{proof}
-    Eigenvalues in 2x2 matrix are roots to 
-    \[p_A(\lambda) = \lambda^2 + \lambda(a+d) + (ad - bc) = 0
-    \]
-    Quadratic formula gives us:
+\begin{problem}{4} I'll do both parts at once. \\
+\begin{proof} If $A = A^H$, then the diagonal elements of $A$ must be real (since they don't change when we take their complex conjugate). We know from exercise 4.3 that
+\begin{align*}
+p(\lambda ) = \lambda^2 - \text{ tr}A\lambda + \text{ det} (A)
+\end{align*}
+By the quadratic formula, we can look at the quasi-discriminant $(\text{ tr}A)^2 - 4\text{ det} (A)$ to see if the roots are real. Now
+\begin{align*}
+(\text{ tr}A)^2 - 4\text{ det} (A) = (A_{11} + A_{22})^2 - 4(A_{11}A_{22} - A_{12}A_{21}) = (A_{11} - A_{22})^2 + 2A_{12} A_{21}
+\end{align*}
+If $A$ is Hermitian,
+$$A_{12} = \overline{A_{21}} \implies A_{12}A_{21} \geq 0 $$
+which implies the discriminant is positive and the characteristic polynomial has real roots. \\
+If $A$ is Skew-Hermetian,
+$$A_{12} = - \overline{A_{21}} \implies A_{12}A_{21} \leq 0 $$
+which implies the discriminant is negative and the characteristic polynomial has complex roots.
 \end{proof}
 \end{problem}
-\end{document}
 
+\begin{problem}{6}
+\begin{proof}
+Consider an upper triangular matrix $A$, with the elements $\lambda$ on the diagonal like so:
+$$
+A = \begin{bmatrix}
+\lambda_1 & & \\
+& \lambda_2 & \\
+& & ... & & \\
+& & & \lambda_k
+\end{bmatrix}
+$$
+(Note of course that the $\lambda$s don't have to be unique.) A number c is an eigenvalue, iff the space Ker($cI - A)$ has some nonzero elements. We see that
+$$
+cI - A = \begin{bmatrix}
+c - \lambda_1 & & \\
+& c - \lambda_2 & \\
+& & ... & & \\
+& & & c - \lambda_k
+\end{bmatrix}
+$$
+For $c \neq \lambda_i$, the matrix is invertible and Ker$(cI - A) = \{0\} \implies c$ is not an eigenvalue. \\
+For $c = \lambda_i$, some column of $cI -A$ will have zero on the diagonal. Choose the first such column, call it column $(cI-A)_r$. I claim that column $(cI-A)_r$ must be in the span of all the previous columns $(cI-A)_1,...,(cI-A)_{r-1}$.  \\
+To see this, think of all the columns as $r-1$-dimensional vectors. I can do this because the coordinates in position $k>r$ are all 0, and thus they "don't matter" (technical term!). Since I'm thinking now of vectors in $\mathbb{F}^{r-1}$ and I notice that $(cI-A)_1, ... (cI-A)_{r-1}$ are linearly independent, I can say that these vectors form a basis for  $\mathbb{F}^{r-1}$. Therefore $(cI-A)_{r-n} \in \mathbb{F}^{r-1}$ is in the span of $ \{ (cI-A)_1, ... (cI-A)_{r-1} \}$... but there is no difficulty in passing to the whole column of $(cI-A)$because the other coordinates are 0! \\
+That was long and there's probably a shorter way to do it (indeed I'm pretty sure the above isn't rigorous), but the point is that I've shown that the columns of $(cI-A)$ are not linearly independent. Thus $(cI-A)$ does not have full rank, so it's not injective, so its kernel must have nonzero elements, so $c$ is an eigenvalue.
+\end{proof}
+\end{problem}
+
+\begin{problem}{8} Three Parts:
+\begin{itemize}
+\item
+\begin{proof}
+$S$ spans $V$ by definition. It remains to show that I can't write any of the elements as a linear combination of any of the others. I feel like should \textit{probably} be invoking that fourier stuff that Jan taught us right about now... but I'll wriggle my way out of that by doing a trick. Let's define for each function a 4-dimensional vector which evaluates the function at the points: $0 ,\dfrac{\pi}{4}, \dfrac{\pi}{3}$ and $\dfrac{\pi}{2}$. The vectors are:
+\begin{align*}
+v_{sin(x)} = \begin{bmatrix}
+sin(0) = 0 \\
+sin(\dfrac{\pi}{4}) = .707 \\
+sin(\dfrac{\pi}{3}) = .866 \\
+sin(\dfrac{\pi}{2}) = 1
+\end{bmatrix}
+v_{cos(x)} = \begin{bmatrix}
+1 \\
+.707 \\
+.5 \\
+0
+\end{bmatrix}
+v_{sin(2x)} = \begin{bmatrix}
+0 \\
+1 \\
+.866 \\
+0
+\end{bmatrix}
+v_{cos(2x)} = \begin{bmatrix}
+1 \\
+0\\
+-.5 \\
+-1
+\end{bmatrix}
+\end{align*}
+I want to check to see if these vectors are linearly independent. One check is to see if a matrix with these vectors as columns row-reduces to the identity matrix, which it does. And if I can't express any of the functions as a linear combination of the others at these 4 points, than I sure as heck know that I can't express any of them as a linear combination of the others generally, so they are linearly independent.
+\end{proof}
+\item (ii) $$
+D = \begin{bmatrix}
+0 & -1 & 0 & 0 \\
+1 & 0 & 0 & 0 \\
+0 & 0 & 0 & -2 \\
+0 & 0 & 2 & 0
+\end{bmatrix}
+$$
+\item (iii) The spaces $E_1 = \text{ span} \{ sin(x), cos(x) \}$ and $E_2 = \text{ span} \{ sin(2x), cos(2x) \}$ are complementary and $D$- invariant.
+\end{itemize}
+\end{problem}
+
+\begin{problem}{13}
+First step is to find the basis of eigenvectors. Eigenvalues are $1, .4$ with eigenvectors $(2, 1)$ and $(1, -1)$ So I want to change to this basis, and I'll use
+$$
+P = \begin{bmatrix}
+2 & 1 \\
+1 & -1\\
+\end{bmatrix}
+$$
+as my transition matrix.
+$$
+P^{-1}AP = \begin{bmatrix}
+1 & 0 \\
+0 & .4
+\end{bmatrix}
+$$
+\end{problem}
+
+\begin{problem}{15}
+\begin{proof}
+Let $\mathcal{B} = \{b_1, ..., b_n\}$ be an eigenbasis for $A$, with each $b_i$ corresponding to an eigenvalue $\lambda_i$. Consider the action of $f(A)$ on the vector $f(b_i)$. First I show that $Af(b_i) = \lambda_i f(b_i)$ \\
+Proof of the above:
+\begin{align*}
+Af(b_i) &= A(a_0 + a_1b_i + a_2b_i^2 +... +a_nb_i^n = a_0A + a_1Ab_i + a_2Ab_i^2 + ... +a_nAb_i^n \\
+&= a_oA + a_1 \lambda_i b_i + a_2 \lambda_i^2 b_i +  ... + a_n \lambda_i^n b_i = f(\lambda_i)b_i
+\end{align*}
+After we've shown this, we can see that
+\begin{align*}
+f(A)f(b_i) = (a_0 + a_1A + a_2A^2 + ... + a_nA^n)f(b_i) \\
+= a_0f(b_i) + a_1 \lambda_i f(b_i) + a_2 \lambda_i^2 f(b_i) + ... + \lambda_i^n f(b_i) \\
+= f(\lambda_i)f(b_i)
+\end{align*}
+which concludes the proof.
+\end{proof}
+\end{problem}
+
+\begin{problem}{16} Three Parts
+\begin{itemize}
+\item (i)
+Let $D = P^{-1}AP$ as in problem 4.13. Then by proposition 4.3.10 for any $k \in \mathbb{N}$,
+$$
+D = P^{-1}AP \implies A = PDP^{-1} \implies A^k = PD^kP^{-1}
+$$
+And I can apply a limit as $k \to \infty$ to both sides. It's clear that $D^k \to ( \begin{smallmatrix} 1 & 0 \\ 0 & 1 \end{smallmatrix} )$, so
+$$
+A^k \to P \begin{bmatrix}
+1 & 0 \\
+0 & 0
+\end{bmatrix} P^{-1} = \begin{bmatrix}
+\frac{2}{3} & \frac{2}{3} \\
+\frac{1}{3} & \frac{1}{3}
+\end{bmatrix}
+$$
+\item (ii)
+The answer for the $\infty$-norm will not change. Recall that we showed in week 2 that the $\infty$-norm and the 1-norm were \textit{topologically equivalent}. Two norms that are topologically equivalent have the same convergent sequences. Indeed, the answer does not change when we use the Frobenius norm either, since by theorem 5.8.7, all norms on a finite-dimensional vector space are topologically equivalent, and we apply this fact to $M_{2x2}(\mathbb{F})$ to see that convergence is the same over all norms.
+\item (iii)
+For a polynomial $p$, The eigenvalues of $p(A)$ are just $p(\lambda_i)$ where $\lambda-I$ are the eigenvalues of $A$.
+$$
+p(1) = 3 + 5(1) + 1^3 = 8\text{,  } p(.4) = 3 + 5(.4) +.4^3 = 5.096
+$$
+so our eigenvalues are 8 and 5.96.
+\end{itemize}
+\end{problem}
+
+\begin{problem}{18}
+\begin{proof}
+First, look at remark 4.3.15 in the book to see that
+$$x^TA = \lambda x^T \iff A^Tx = \lambda x$$
+In other words, we're looking to see if $\lambda$ is an eigenvalue of $A^T$. But we know that
+$$0 = \text{det}(A - \lambda I) = \text{ det}(A^T - \lambda I) = 0 $$
+so this is indeed the case.
+\end{proof}
+\end{problem}
+
+\begin{problem}{20}
+\begin{proof}
+Suppose $A$ is Hermetian and there exist orthonormal matrices $Q, Q^H$ such that $QAQ^H = B$. Then
+$$B^H = (QAQ^H)^H = QAQ^H = B$$
+\end{proof}
+\end{problem}
+
+\begin{problem}{24}
+First of all, I am not concerned about the denominator since the norm will always be real. So examine $\langle x, Ax \rangle$. Recall that the adjoint with the normal inner product on $\mathbb{F}$ is the hermitian. Then for $A$ hermitian,
+$$ \langle x, Ax \rangle = \langle A^Hx, x \rangle = \langle Ax, x \rangle = \overline{\langle x, Ax \rangle} $$
+Since $\langle x,Ax \rangle$ equals its own conjugate, this must be a real number. On the other hand, if $A$ is skew-hermitian,
+$$ \langle x, Ax \rangle = \langle A^Hx, x \rangle = \langle -Ax, x \rangle = \overline{\langle x, -Ax \rangle} = - \overline{\langle x, Ax \rangle} $$
+and now the inner product must be imaginary.
+\end{problem}
+
+\begin{problem}{25} Two parts
+\begin{itemize}
+\item (i) \begin{proof}
+A is a normal matrix, so we know that its orthonormal eigenvectors $\{ x_1, ... x_n \}$ form a basis for $\mathbb{C}^n$. If I show that a transformation fixes each of these basis vectors I have shown that it is the identity. And by orthonormality, for any basis vector $x_j$,
+$$
+(x_1x_1^T + ... + x_nx_n^T)x_j = 0 +... + x_j1 + ... + 0 = x_j
+$$
+\end{proof}
+\item (ii)
+\begin{proof}
+Very similar to the above: If I show that two transformations are equal on a basis, then they're equal everywhere. Let $x_j$ be an arbitrary basis vector, and see that
+$$*\lambda_1 x_1x_1^T + ... + x_nx_n^T)x_j = 0+ ... + \lambda_j x_j 1+... + 0 = \lambda_j x_j = Ax_j
+$$
+\end{proof}
+\end{itemize}
+\end{problem}
+
+\begin{problem}{27}
+\begin{proof}
+Let $A \in M_n(\mathbb{F})$ be a positive definite matrix. I'll argue by contradiction. Suppose that $A_{ii}$ is a diagonal entry in $A$ that is not a positive real number. Then
+$$
+A e_i = \begin{bmatrix}
+a_{1i}
+. \
+. \
+.
+a_{ni}
+\end{bmatrix}
+$$
+and
+$$ \langle e_i, Ae_i \rangle = A_{ii} \notin \mathbb{R}^+ $$
+so we see that A is not positive semi definite and we have our contradiction.
+\end{proof}
+\end{problem}
+
+\begin{problem}{28}
+\begin{proof}
+First I'll show the facts about trace. \\ Recall that the trace is the sum of the eigenvalues, so $AB$ positive semidefinite $\implies$ tr$(AB) \geq 0$. I must show therefore that $AB$ is positive semidefinite. (This part of the proof is from Jaehyung!)\\
+By the definition of a positive definite matrix $\langle x, Ax \rangle, \langle x, Bx\rangle \geq 0$, so their product is also $ \geq 0$. See that
+\begin{align*}
+\langle x, Ax \rangle \langle x, Bx \rangle &= (x^TAx)(x^TBx) \\
+&= (xx^T)(x^TABx) \\
+&= (xx^T) \langle x, ABx \rangle
+\end{align*}
+But for all nonzero $x$, we have $xx^T$ is a positive scalar, and
+$$ \langle x, Ax \rangle \langle x, Bx \rangle \geq 0 \implies \langle x, ABx \rangle \geq 0 $$
+Which means that $AB$ is positive semidefinite. \\
+For the second inequality, recall that any positive semidefinite matrix is orthonormally similar to a diagonal matrix. Let $A_D, B_D$ be the diagonal representations of $A, B$. Trace is invariant over change of basis, so tr$(AB) = $ tr$(A_DB_D)$. Let $\lambda_1, ..., \lambda_m$ be the positive eigenvalues of $A$, and $\phi_1, ..., \phi_n$ be the positive eigenvalues of $B$. Let $k = \text{min}\{m, n\}$. Then $$(A_DB_D) = \text{diag}(\lambda_1\phi_1, ..., \lambda_k\phi_k, 0 ,..., 0) \implies tr(A_DB_D) = \sum_{i=1}^k \lambda_i\phi_i $$
+On the other hand,
+\begin{align*}
+\text{ tr}(A)\text{ tr}(B) &= (\lambda_1 + ... + \lambda_m)(\phi_1 + ... + \phi_n) \\
+&= \sum_{i=1}^{m} \sum_{j=1}^n \lambda_i \phi_j \\
+&\geq \sum_{i=1}^k \lambda_i\phi_i = \text{ tr}(AB)
+\end{align*}
+Which is the second inequality. \\
+Finally,
+\begin{align*}
+||AB||_F^2 = \text{ tr}(AA^HBB^H) \leq \text{ tr}(AA^H) \text{ tr}(BB^H) = ||A||_F ||B||_F^2
+\end{align*}
+Which is the property that makes $|| \cdot ||_F$ a matrix norm.
+\end{proof}
+\end{problem}
+
+\begin{problem}{31} 4 parts
+\begin{itemize}
+\item (i) \begin{proof}
+Recall the definition that
+$$||A||_2 = \text{ sup}_{x \neq 0} \frac{||Ax||_2}{||x||_2}$$
+Now in the SVD we decompose $A$ into $U\Sigma V^Hr$ with $U$ and $V^H$ orthonormal. Now, because $U$ and $V^H$ are orthonormal, they preserve norms, and the only way that $A$ can change the norm of a vector is through the diagonal matrix $\Sigma$. I appeal to intuition when I say that the most "effective" way that $\Sigma$ can do this is if it acts on the eigenvector of its highest eigenvalue $\sigma_1$. (The spectral norm of a diagonal matrix is its highest eigenvalue). And we see that  $$||A||_2 = ||\Sigma||_2 = \sigma_1$$
+\end{proof}
+\item (ii) \begin{proof}
+Let $U \Sigma V^H$ be the SVD of $A$. Then
+$$ A^{-1} = V \Sigma^{-1} U^H$$
+Since $\sigma_n$ is the smallest eigenvalue of $\Sigma$, $\sigma_n^{-1}$ is the largest eigenvalue of $\Sigma^{-1}$ and it follows that it is the spectral norm by part (i).
+\end{proof}
+\item (iii) \begin{proof}
+It's become clear by now that the spectral norm of $A$ depends only on its singular values, and because singular values are positive real numbers,
+$$
+\Sigma^H = \Sigma^T = \Sigma \implies ||A^H||_2^2 = ||A^T||_2^2 = ||A||_2^2
+$$
+For the last piece of the puzzle, see that
+$$A^HA = (V \Sigma U)^H(V \Sigma U) = (U^H  \Sigma^H V^H)(V \Sigma U) = U^H \Sigma^2 U$$
+which is a singular value decomposition of $A$, and the largest eigenvalue of $\Sigma^2$ is $\sigma_1^2$ so we see that $||A^HA||_2 = ||A||_2^2 $
+\end{proof}
+\item (iv) \begin{proof}
+If $A$ has an SVD $U_1 \Sigma V_1^H = A$, then
+$$ UAV = (UU_1) \Sigma (V_1^HV^H) $$
+which is also a singular decomposition for $UAV$, so these two transformations have the same singular values and thus the same norms.
+\end{proof}
+\end{itemize}
+\end{problem}
+
+\begin{problem}{32} \textbf{NOTE:} I'm doing (ii) first and then (i)
+\item (ii)
+\begin{proof}
+If $U\Sigma V^H$ is an SVD for $A$,
+$$ ||A||_F = \sqrt{\text{tr}(A^HA} = \sqrt{\text{tr}((U^H  \Sigma^H V^H)(V \Sigma U))} = \sqrt{\text{tr}(\Sigma^H\Sigma)} = \sqrt{\sum_{i=1}^n \sigma_i^2} $$
+\end{proof}
+\item (i)
+\begin{proof}
+We saw in 4.31 part (iv) that $UAV$ and $A$ have the same singular values. And since by (ii) the norm depends entirely on the singular values, $UAV$ and $A$ have the same norms.
+\end{proof}
+\end{problem}
+
+\begin{problem}{4.33}
+\begin{proof}
+Note that $y^HAx$ will be a field element. If we think of this as a linear map, $y^HAx: \mathbb{F} \to \mathbb{F}$, then we see that the spectral norm of this map is:
+$$||y^HAx||_2 = \text{sup}_{f \in \mathbb{F}} \frac{||(y^HAx)f||_2}{||f||_2} = |y^HAx| $$ (Where the first norm is the spectral norm and the norm in the fraction is the standard 2-norm.)
+\end{proof}
+\end{problem}
+
+\begin{problem}{36}
+Well, singular values are always strictly positive, so
+$$
+-I = \begin{bmatrix}
+-1 & 1 \\
+0 & -1
+\end{bmatrix}
+$$
+works since both its eigenvalues are negative (There are many examples).
+\end{problem}
+
+\begin{problem}{38}
+Lots of parts. Recall the definition that for $U \Sigma V^H$ an SVD of $A$, $$A^\dagger = V \Sigma^{-1} U^H$$
+\begin{itemize}
+\item (i) \begin{proof}
+$$
+AA^\dagger A = (U \Sigma V^H) (V \Sigma^{-1} U^H) (U \Sigma V^H) = U \Sigma V^H = A
+$$
+\end{proof}
+\item (ii) \begin{proof}
+$$A^\dagger A A^\dagger = (V \Sigma^{-1} U^H)(U \Sigma V^H) (V \Sigma^{-1} U^H) = (V \Sigma^{-1} U^H) = A^\dagger $$
+\end{proof}
+\item (iii) \begin{proof}
+$$
+(AA^\dagger)^H = ((U \Sigma V^H) (V \Sigma^{-1} U^H))^H = U \Sigma^{-1}V^H V \Sigma U^H = UU^H = AA^\dagger
+$$
+\end{proof}
+\item (iv) \begin{proof}
+$$
+(A^\dagger A)^H = ((V \Sigma^{-1} U^H) (U \Sigma V^H))^H = V \Sigma U^H U \Sigma^{-1} V^H = VV^H = A^\dagger A
+$$
+\end{proof}
+\item (v) \begin{proof}
+To show that a matrix is an orthogonal projection, I must show that it is hermitian ($M^H = M$) and idempotent ($M^2 = M$).
+By (iii) $A A^\dagger$ is hermitian. By (i) $AA^\dagger A A^\dagger = A A^\dagger \implies$ idempotence. \\
+It remains to show $\mathcal{R}(AA^\dagger) = \mathcal{R} (A)$. \\
+Trivially $\mathcal{R}(A A^\dagger) \subset \mathcal{R}(A)$. And (i) $\implies \mathcal{R}(A) \subset \mathcal{R}(A A^\dagger)$
+\end{proof}
+\item (vi) \begin{proof}
+By (iv) $A^\dagger A$ is hermitian. By (ii) $A^\dagger A A^\dagger A = A^\dagger A \implies$ idempotence. \\
+It remains to show $\mathcal{R}(A^\dagger A) = \mathcal{R} (A^H)$. By (iv),
+$$AA^\dagger = (AA^\dagger)^H = A^H (A^\dagger)^H \implies \mathcal{R}(A^\dagger A) \subset \mathcal{R} (A^H) $$
+If we take the hermitian of both sides of (i), we see that
+$$ (A^\dagger A)^H A^H = (A^\dagger A)^H A^H A^H \implies \mathcal{R} (A^H) \subset \mathcal{R}(A^\dagger A) $$
+(credit again to Jaehyung for these last two parts!)
+\end{proof}
+\end{itemize}
+\end{problem}
+\end{document}
