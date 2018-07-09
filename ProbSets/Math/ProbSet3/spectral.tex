@@ -1,0 +1,76 @@
+\documentclass[12pt]{amsart}
+
+%Below are some necessary packages for your course.
+\usepackage{amsfonts,latexsym,amsthm,amssymb,amsmath,amscd,euscript}
+\usepackage{framed}
+\usepackage{fullpage}
+\usepackage{hyperref}
+    \hypersetup{colorlinks=true,citecolor=blue,urlcolor =black,linkbordercolor={1 0 0}}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+
+% You can define new commands to make your life easier.
+\newcommand{\R}{\mathbb R}
+\newcommand{\C}{\mathbb C}
+\newcommand{\F}{\mathbb F}
+\newcommand{\Q}{\mathbb Q}
+\newcommand{\Z}{\mathbb Z}
+\newcommand{\N}{\mathbb N}
+
+
+%\numberwithin{equation}{section}
+\title{Math Pset 3:\\
+       Spectral Theory}
+\author{Alex Weinberg\\
+        OSM Boot Camp 2018}
+
+
+\begin{document}
+
+\maketitle
+
+
+\begin{problem}{2} Find the eigenvalues of D[p](x) = p'(x)
+\end{problem}
+\begin{proof}
+    \[
+ D =   \begin{bmatrix}
+    0 & 1 & 0 \\
+    0 & 0 & 2 \\
+    0 & 0 & 0 \\
+    \end{bmatrix}
+    \]
+    So, \[ p_A(\lambda) = 
+   \begin{bmatrix}
+    \lambda & 0 & 0 \\
+    0 & \lambda & 0 \\
+    0 & 0 & \lambda \\
+    \end{bmatrix} -
+    \begin{bmatrix}
+    0 & 1 & 0 \\
+    0 & 0 & 2 \\
+    0 & 0 & 0 \\
+\end{bmatrix} =
+\begin{bmatrix}
+    \lambda & -1 & 0 \\
+    0 & \lambda & -2 \\
+    0 & 0 & \lambda \\
+\end{bmatrix}\\
+\]
+So, \[
+det(p_D(\lambda)) = \lambda^3 =0 \iff \lambda=0
+\]
+\end{proof}
+
+\begin{problem}{4}
+\begin{proof}
+    Eigenvalues in 2x2 matrix are roots to 
+    \[p_A(\lambda) = \lambda^2 + \lambda(a+d) + (ad - bc) = 0
+    \]
+    Quadratic formula gives us:
+\end{proof}
+\end{problem}
+\end{document}
+
