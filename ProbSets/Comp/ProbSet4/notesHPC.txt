@@ -1,0 +1,35 @@
+Notes_HPC
+
+LOGIN: ssh -X weinberga@midway1.rcc.uchicago.edu
+
+CLONE REPO: git clone https://github.com/sischei/OSM2018
+1. develop on your comp
+2. upload to github
+3. clone onto the supercomputer
+
+1. load packages into your enviornment
+module avail - which are available
+module list - which do you have loaded
+module load matlab - load matlab
+module unload matlab - unload matlab
+
+2. compile:  g++ helloworld.cpp
+or
+make -f makefile_helloworld_cpp
+for fortran it is gfortran
+
+3. SLURM
+it allocates for you, also keeps track of stuff for you
+sbatch submit_helloworld.sh
+squeue -u weinberga
+scancel JOB_ID
+
+###################
+# Submiting a task
+##################
+SBATCH --ntasks=1              # how many CPUS
+SBATCH --time=01:00:00         # walltime requested
+SBATCH --output=slurm_test.out # output file
+SBATCH --error=slurm_test.err  # error
+
+SBATCH --mail-type=BEGIN,END,DAIL
