@@ -1,0 +1,195 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\pagestyle{fancy}
+\usepackage{amsmath, amsthm, amssymb, amsfonts, mathtools, xfrac,mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx,dsfont}
+\usepackage{braket, bm}
+\usepackage[dvipsnames]{xcolor}
+
+\everymath{\displaystyle}
+\headheight=20pt
+
+\usepackage{listings}
+\lstset{frame=single,
+  language=Python,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  keywordstyle=\bfseries\color{OliveGreen},
+  commentstyle=\itshape\color{purple},
+  identifierstyle=\color{blue},
+  stringstyle=\color{red},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\newcommand{\N}{\mathbb{N}}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+
+\title{Homework}
+\lhead{DSGE Models}
+\chead{Pset 4}
+\rhead{Alex Weinberg}
+
+%-------------------------------------------------------------------------------
+
+\begin{document}
+
+\begin{problem}{1}
+For this case find an algebraic solution for the policy function, $k_{t+1} = \phi(k_t,z_t)$.
+\begin{proof}
+ We first guess, that there exists $A$ defining the policy function $K_{t+1} = Ae^{zt}K_t^\alpha$ and plugging it into the Euler equation. This gives us:
+\begin{align*}
+\frac{1}{ e^{z_t} K_t^\alpha - K_{t+1}} &= \beta E_t \big\{\frac{\alpha e^{z_{t+1}} K_{t+1}^{\alpha-1}}{e^{z_{t+1}}K_{t+1}^\alpha - K_{t+2}}\big\} \\
+\frac{1}{ (1-A)e^{z_t} K_t^\alpha} &= \beta E_t \big\{\frac{\alpha e^{z_{t+1}} K_{t+1}^{\alpha-1}}{(1-A)e^{z_{t+1}}K_{t+1}^\alpha}\big\} \\
+\frac{1}{ e^{z_t} K_t^\alpha} &= \beta \frac{\alpha}{K_{t+1}}\\
+\frac{1}{ e^{z_t} K_t^\alpha} &= \beta \frac{\alpha}{Ae^{zt}K_t^\alpha}\\
+1 &= \frac{\alpha \beta}{A}\\
+A &= \alpha\beta
+\end{align*}
+\end{proof}
+\end{problem}
+
+%-------------------------------------------------------------------------------
+
+\begin{problem}{2}
+Given following functional forms,
+\begin{equation}
+\begin{split}
+u(c_t,\ell_t) & = \text{ln }c_t + a \text{ ln }(1-\ell_t)\\
+F(K_t,L_t,z_t) & = e^{z_t}K^{\alpha}_t L^{1-\alpha}_t  \nonumber
+\end{split}
+\end{equation} find the characterizing equations.
+\begin{proof}
+$$c_t = (1-\tau)(w_tl_t + (r_t -\delta)k_t) + k_t + T_t - k_{t+1}$$
+$$\frac{1}{c_t} = \beta E_t \big\{ \frac{1}{c_{t+1}}((r_{t+1} - \delta)(1-\tau)+ 1) \big\}$$
+$$\frac{a}{1-l_t} = \frac{w_t}{c_t}(1-\tau)$$
+$$r_t = \alpha e^{zt}K_t^{\alpha-1} L_t^{1-\alpha}$$
+$$w_t = (1-\alpha) e^{zt}K_t^{\alpha} L_t^{-\alpha}$$
+$$\tau(w_tl_t + (r_t -\delta)k_t) = T_t$$
+$$z_t = (1-p_z)\bar{z} + p_zz_{t-1} + \epsilon^z_t,  \epsilon^z_t \sim \text{i.i.d}(0, \sigma^2_z)$$
+\end{proof}
+\end{problem}
+
+%-------------------------------------------------------------------------------
+
+\begin{problem}{3}
+Using CRRA utility for consumption,
+\begin{equation}\label{DSGE_HW_CharEq_CES_Ln_eq01}
+\begin{split}
+u(c_t,\ell_t) & = \frac{c^{1-\gamma}_t -1}{1-\gamma}+ a \text{ ln }(1-\ell_t)\\
+F(K_t,L_t,z_t) & = e^{z_t}K^{\alpha}_t L^{1-\alpha}_t  \nonumber
+\end{split}
+\end{equation}
+\begin{proof}
+New characterizing equations are similar
+$$c_t = (1-\tau)(w_tl_t + (r_t -\delta)k_t) + k_t + T_t - k_{t+1}$$
+$$\frac{1}{c_t^{-\gamma}} = \beta E_t \big\{ \frac{1}{c_{t+1}^{-\gamma}}((r_{t+1} - \delta)(1-\tau)+ 1) \big\}$$
+$$\frac{a}{1-l_t} = \frac{w_t}{c_t^{-\gamma}}(1-\tau)$$
+$$r_t = \alpha e^{zt}K_t^{\alpha-1} L_t^{1-\alpha}$$
+$$w_t = (1-\alpha) e^{zt}K_t^{\alpha} L_t^{-\alpha}$$
+$$\tau(w_tl_t + (r_t -\delta)k_t) = T_t$$
+$$z_t = (1-p_z)\bar{z} + p_zz_{t-1} + \epsilon^z_t,  \epsilon^z_t \sim \text{i.i.d}(0, \sigma^2_z)$$
+\end{proof}
+\end{problem}
+
+%-------------------------------------------------------------------------------
+
+\begin{problem}{4}
+Using CRRA utility for consumption and leisure and a new production function.
+\begin{equation}\label{DSGE_HW_CharEq_CES_eq01}
+\begin{split}
+u(c_t,\ell_t) & = \frac{c^{1-\gamma}_t -1}{1-\gamma}+ a \frac{(1-\ell_t)^{1-\xi}-1}{1-\xi}      \\
+F(K_t,L_t,z_t) & = e^{z_t}\left[\alpha K^{\eta}_t +(1-\alpha)L^{\eta}_t \right]^{\frac{1}{\eta}}   \nonumber
+\end{split}
+\end{equation}
+\begin{proof}
+New characterizing equations are similar
+$$c_t = (1-\tau)(w_tl_t + (r_t -\delta)k_t) + k_t + T_t - k_{t+1}$$
+$$\frac{1}{c_t^{-\gamma}} = \beta E_t \big\{ \frac{1}{c_{t+1}^{-\gamma}}((r_{t+1} - \delta)(1-\tau)+ 1) \big\}$$
+$$\frac{a}{(1-l_t)^{-\xi}} = \frac{w_t}{c_t^{-\gamma}}(1-\tau)$$
+$$r_t = \alpha e^{zt}K_t^{\eta-1} (\alpha K_t^\eta+ (1-\alpha)L_t^\eta)^{\frac{1-\eta}{\eta}}$$
+$$w_t = (1-\alpha) e^{zt}L_t^{\eta-1}(\alpha K_t^\eta+ (1-\alpha)L_t^\eta)^{\frac{1-\eta}{\eta}}$$
+$$\tau(w_tl_t + (r_t -\delta)k_t) = T_t$$
+$$z_t = (1-p_z)\bar{z} + p_zz_{t-1} + \epsilon^z_t,  \epsilon^z_t \sim \text{i.i.d}(0, \sigma^2_z)$$
+\end{proof}
+\end{problem}
+
+%-------------------------------------------------------------------------------
+
+\begin{problem}{5}
+Using the new given functional forms. Write out characterizing equations.
+\begin{equation}\label{DSGE_HW_NoLeisure_eq01}
+\begin{split}
+u(c_t) & = \frac{c^{1-\gamma}_t -1}{1-\gamma}      \\
+F(K_t,L_t,z_t) & = K^{\alpha}_t (L_te^{z_t})^{1-\alpha}  \nonumber
+\end{split}
+\end{equation}
+We have 6 because intratemporal labor/leisure euler equation drops out.
+\begin{proof}
+\begin{align*}
+c_t &= (1-\tau)(w_t+ (r_t -\delta)k_t) + k_t + T_t - k_{t+1} \\
+\frac{1}{c_t^{-\gamma}} &= \beta E_t \big\{ \frac{1}{c_{t+1}^{-\gamma}}((r_{t+1} - \delta)(1-\tau)+ 1) \big\} \\
+r_t &= \alpha (e^{zt})^{(1-\alpha)} K_t^{\alpha-1} \\
+w_t &= (1-\alpha) (e^{zt})^{(1-\alpha)} K_t^{\alpha} \\
+\tau(w_t + (r_t -\delta)k_t) &= T_t \\
+z_t &= (1-p_z)\bar{z} + p_zz_{t-1} + \epsilon^z_t,  \epsilon^z_t \sim \text{i.i.d}(0, \sigma^2_z)
+\end{align*}
+In the non-stochastic steady state this becomes:
+$$\bar{c} = (1-\tau)(\bar{w} + (\bar{r} -\delta)\bar{k}) + \bar{T}$$
+$$\frac{1}{\bar{c}^{-\gamma}} = \beta \frac{1}{\bar{c}^{-\gamma}}((\bar{r} - \delta)(1-\tau)+ 1) $$
+$$\bar{r} = \alpha (e^{\bar{z}})^{1-\alpha} \bar{k}^{\alpha-1} $$
+$$\bar{w} = (1-\alpha) (e^{\bar{z}})^{1-\alpha} \bar{k}^{\alpha} $$
+$$\tau(\bar{w} + (\bar{r} -\delta)\bar{k}) =  \bar{T}$$
+With $\bar{z} = 0$. Solving algebraically for the steady state values of capital, output, and investment, giving us:
+$$\bar{r} = \frac{\frac{1}{\beta}-1}{1-\tau} + \delta = 0.12$$
+$$\bar{k} = \big(\frac{\bar{r}}{\alpha}\big)^\frac{1}{\alpha-1} = 7.28$$
+$$\bar{I} = \delta \bar{k} = 0.73$$
+$$\bar{Y} = \bar{k}^\alpha = 2.21$$
+Numerical solution is similar. See jupyter notebook attached below.
+\end{proof}
+\end{problem}
+
+%-------------------------------------------------------------------------------
+
+\begin{problem}{6}
+Using the new given functional forms,
+\begin{equation}
+\begin{split}
+u(c_t,\ell_t) & = \frac{c^{1-\gamma}_t -1}{1-\gamma}+ a \frac{(1-\ell_t)^{1-\xi}-1}{1-\xi}      \\
+F(K_t,L_t,z_t) & = K^{\alpha}_t (L_te^{z_t})^{1-\alpha}  \nonumber
+\end{split}
+\end{equation}
+\begin{proof}
+We have similar characterizing equations:
+$$c_t = (1-\tau)(w_t+ (r_t -\delta)k_t) + k_t + T_t - k_{t+1}$$
+$$\frac{1}{c_t^{-\gamma}} = \beta E_t \big\{ \frac{1}{c_{t+1}^{-\gamma}}((r_{t+1} - \delta)(1-\tau)+ 1) \big\}$$
+$$\frac{a}{(1-l_t)^{-\xi}} = \frac{w_t}{c_t^{-\gamma}}(1-\tau)$$
+$$r_t = \alpha (e^{zt})^{1-\alpha} K_t^{\alpha-1} L_t^ {1-\alpha}$$
+$$w_t = (1-\alpha) (e^{zt})^{1-\alpha} K_t^{\alpha}L_t^ {-\alpha} $$
+$$\tau(w_t + (r_t -\delta)k_t) = T_t$$
+$$z_t = (1-p_z)\bar{z} + p_zz_{t-1} + \epsilon^z_t,  \epsilon^z_t \sim \text{i.i.d}(0, \sigma^2_z)$$
+which in the steady state become:
+$$\bar{c} = (1-\tau)(\bar{w} + (\bar{r} -\delta)\bar{k}) + \bar{T}$$
+$$\frac{1}{\bar{c}^{-\gamma}} = \beta \frac{1}{\bar{c}^{-\gamma}}((\bar{r} - \delta)(1-\tau)+ 1) $$
+$$\frac{a}{(1-\bar{l})^{-\xi}} = \frac{\bar{w}}{\bar{c}^{-\gamma}}(1-\tau)$$
+$$\bar{r} = \alpha (e^{\bar{z}})^{1-\alpha} \bar{k}^{\alpha-1} \bar{l}^{1-\alpha} $$
+$$\bar{w} = (1-\alpha) (e^{\bar{z}})^{1-\alpha} \bar{k}^{\alpha} \bar{l}^{-\alpha}$$
+$$\tau(\bar{w} + (\bar{r} -\delta)\bar{k}) =  \bar{T}$$
+where $\bar{z} = 0$.
+Numerical solution is similar. See jupyter notebook attached below.
+\end{proof}
+\end{problem}
+
+
+\end{document}
