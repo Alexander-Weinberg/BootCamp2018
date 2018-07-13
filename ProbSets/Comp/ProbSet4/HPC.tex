@@ -1,0 +1,128 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\pagestyle{fancy}
+\usepackage{amsmath, amsthm, amssymb, amsfonts, mathtools, xfrac,mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx,dsfont}
+\usepackage{braket, bm}
+\usepackage[dvipsnames]{xcolor}
+
+\everymath{\displaystyle}
+\headheight=20pt
+
+
+\newcommand{\N}{\mathbb{N}}
+
+\usepackage{listings}
+\lstset{frame=single,
+  language=C++,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  keywordstyle=\bfseries\color{OliveGreen},
+  commentstyle=\itshape\color{purple},
+  identifierstyle=\color{blue},
+  stringstyle=\color{red},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+
+\title{Homework}
+\lhead{High Performance Computing}
+\chead{Pset 4}
+\rhead{Alex Weinberg}
+
+\begin{document}
+%-------------------------------------------------------------------------------
+\begin{problem}{1}
+I have 100 CPU cores. My code is 0.4 \% serial code. What is maximum speed-up I can obtain?
+\end{problem}
+\begin{proof}
+Speedup from parallel is limited by
+$$
+S(p,N) = \frac{1}{f + \frac{(1-f)}{p}}
+$$
+In our question. f = 0.4 and p =100. So,
+\begin{align*}
+S(100,N) = \frac{1}{0.4 + \frac{(1-0.4)}{100}} \approx 2.46
+\end{align*}
+\end{proof}
+%-------------------------------------------------------------------------------
+\begin{problem}{2}
+\begin{itemize}
+  \item Go to your home directory on MIDWAY (e.g. /home/simonsch)
+  \item Create a folder named Exercises day1
+  \item in there, create a sub-folder denoted Fortran as well as a sub-folder named CPP
+  \item go to your favourite programming language's folder.
+  \item Write a little program in that language that reads in your name from the terminal and write “Hello YOURNAME, how are you”.
+  \item copy this file to your local laptop/desktop by scp.
+  \item compile the code, create an executable that is called “hidiho.exec”.
+  \item Hard-code YOURNAME into your *.cpp/*.f90 file.
+  \item Adjust a slurm job.sh file such that you can submit the executable in batch mode.
+\end{itemize}
+\begin{proof}~\\
+\begin{itemize}
+\item makedir exercises\_day1
+\item cd exercises\_day1
+\item makedir Fortran
+\item makedir CPP
+\item scp weinberga@midway1.rcc.uchicago.edu: /home/weinberga/exercises\_day1/CPP/hello\_name.cpp     /Users/alexweinberg/Desktop/BootCamp2018/ProbSets/Comp/ProbSet4
+\item g++ hello\_name.cpp -o hidiho.exec
+\item \textbf{NEED HELP MAKING SLURM SH FILE}
+\end{itemize}
+\end{proof}
+\end{problem}
+\lstinputlisting[caption=Code for Hello-name]{hello_name.cpp}
+
+%-------------------------------------------------------------------------------
+\newpage
+\begin{problem}{3}
+Write a program in Fortran or CPP that reads arbitrary values a, b, c from the terminal (stdin) and prints the solution to the quadratic Equation.\\
+$$ax^2 + bx + c=0$$
+\end{problem}
+\begin{proof}~\\
+\lstinputlisting[caption= Quadratic Solver]{quadratic.cpp}
+\end{proof}
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\newpage
+\begin{problem}{4}
+Compute pi and write a makefile
+\end{problem}
+\lstinputlisting[caption= Estimate $\pi$]{pi.cpp}
+\lstinputlisting[caption= Makefile for pi.cpp]{makefile_pi}
+{\huge HOW DO I COMBINE MAKEFILES????}
+\lstinputlisting[caption= Submit batch to pi]{submit_pi.sh}
+
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\begin{problem}{5}
+Compute Pi using Monte Carlo. \\
+Experiment with the number of random number you create (N = 100, 1,000, 10,000).\\
+Run the code both in interactive as well as in batch mode.
+\end{problem}
+\lstinputlisting[caption=MonteCarlo estimate pi]{compute_pi.cpp}
+{\huge WHY ONLY WORK ON LOCAL, NOT MIDWAY????}
+
+%-------------------------------------------------------------------------------
+
+%-------------------------------------------------------------------------------
+\begin{problem}{6}
+Run the project in midway
+\end{problem}
+\begin{proof}
+Hello
+\end{proof}
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\end{document}

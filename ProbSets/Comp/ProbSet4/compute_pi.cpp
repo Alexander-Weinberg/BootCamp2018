@@ -21,7 +21,6 @@ bool inCircle(double x, double y)
 
 int main()
 {
-// set up the uniform distribution from [0,1]
 	unsigned seed_unif1 = 3; // unsigned means non-negative, declare seed
 
 	std::default_random_engine generator_unif(seed_unif1);

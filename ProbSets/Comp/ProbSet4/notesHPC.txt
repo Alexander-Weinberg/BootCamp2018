@@ -33,3 +33,32 @@ SBATCH --output=slurm_test.out # output file
 SBATCH --error=slurm_test.err  # error
 
 SBATCH --mail-type=BEGIN,END,DAIL
+
+################################
+DAY 2
+################################
+
+Parallel Computing, openmp
+
+1. No point in parallelizing shit code
+2. How to optimize code?
+
+- profiling will find the hot-spots of your code
+
+
+Priorities:
+ 1. correct
+ 2. maintainable
+ 3. fast
+
+Common sense speed-ups:
+1. do less idle computation
+2. avoid branching (ifelse statements)
+3. access data smartly
+    python, cpp = [0,0], [0,1], [0,2], [0,3]
+    fortran = [1,1], [2,1], [3,1], [4,1]
+    15x speedup
+4. Vectorization
+    use pre-built libraries
+
+    
