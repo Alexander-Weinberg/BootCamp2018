@@ -45,6 +45,8 @@
 
 \begin{document}
 
+Not a great week for me. Copied some problems from Albi.
+
 \begin{problem}{6.6}
 Find the critical points of $f(x,y) = 3x^2y + 4xy^2 + xy$
 \begin{proof}
@@ -83,23 +85,59 @@ $y \neq 0, \quad x \neq 0$
 \begin{center}
  \begin{tabular}{||c c c||}
  \hline
- x & y & Type\\ [0.5ex]
+ x & y & Name\\ [0.5ex]
  \hline\hline
- 0 & 0 &\\
+ 0 & 0 & A\\
  \hline
- 0 & -1/4\\
+ 0 & -1/4 & B\\
  \hline
- -1/3 & 0\\
+ -1/3 & 0 & C\\
  \hline
- -1/9 & -1/12\\
+ -1/9 & -1/12 & D\\
  \hline
  \hline
 \end{tabular}
 \end{center}
 
+Eigs of the hessian for $A$ are  mixed, so $A$ is a saddle point.
+Eigs of the hessian for $B$ are  mixed, so $B$ is a saddle point.
+Eigs of the hessian for $C$ are  mixed, so $C$ is a saddle point.
+Eigs of the hessian for $D$ are  negative, so $D$ is a local maximizer.
+
 \end{proof}
 \end{problem}
 %-------------------------------------------------------------------------------
+\begin{problem}{6.7}\footnote{Thank you to Jayhyung and Albi for much of these notes} ~\\
+\begin{proof}
+(i)
+Notice that $Q^T = (A^T + A)^T = A^T+ A = A + A^T = Q$.
+Also, $x^TAx = \sum_{i=1}^na_{ij}x_ix_j = \sum_{i=1}^na_{ji}x_ix_j = x^TA^Tx$.
+Therefore $x^TQx = 2x^TAx$ and $(6.17)$ is equivalent to
+\begin{align*}
+    f(x) = x^TQx/2 - b^Tx +c.
+\end{align*}
+
+(ii)
+
+The first order necessary conditions for a minimizer imply
+$Q^Tx^* = b$, since $f'(x) = Q^Tx-b$.
+
+(iii)
+
+If $Q$ is positive definite, then $f''(x)>0$ for any $x$.
+Also, $Q$ is invertible and by $(6.19)$ we have
+that $x^*=Q^{-1}b$ is such that $f'(x^*)=0$.
+Then by the second order sufficient condition, $x^*$ is the unique minimizer of $f$.
+Now assume $x^*$ is the unique minimizer of $f$.
+Then by the second order necessary condition, $Q$ is positive semi-definite.
+Also, $x^*$ is a solution to $Q^Tx^*=b$.
+If $Q$ has at least one zero eigenvalue, then $x^*$ is not unique.
+Therefore $Q$ must be positive definite.
+\end{proof}
+\end{problem}
+
+%-------------------------------------------------------------------------------
+
 \begin{problem}{6.11}
 $f(x) = ax^2 + bx + c$.
 Show that one iteration of newton's method will give you a unique solution.
@@ -127,4 +165,160 @@ $$ \lambda \sum a_i + (1-\lambda)\sum b_i  = \lambda + (1-\lambda) = 1
 $$
 \end{proof}
 %-------------------------------------------------------------------------------
+\begin{problem}{7.2}
+(i) \\
+\begin{proof} Let $ P = \{ x \in V | <a,x> = b\}$, a hyperplane in $V$. Then, pick arbitrary $x,y \in P $, satisfying $<a,x> = b$ and $<a,y> = b$. Then, for arbitrary scalar $\lambda \in [0,1]$, the following is satisfied;
+\[<a,\lambda x + (1-\lambda) y > = \lambda <a,x> + (1-\lambda) <a,y> = b \]
+Thus, $\lambda x + (1-\lambda)y \in P$. \ Q.E.D \\\\
+(ii)\\
+\end{proof}
+\end{problem}
+\begin{proof}
+The argument is the same as above. \end{proof}
+\begin{problem}{7.4}
+(i) \\
+
+\begin{proof}
+\begin{align*}
+  \|x-y\|^2 =&  \|x-p + p-y\|^2 \\
+            =& <x-p + p -y, x-p + p-y> \\
+            =& \|x-p\|^2 + \|p-y\|^2 + 2<x-p,p-y>
+\end{align*}
+(ii) \\
+\end{proof}
+\begin{proof}
+By the assumption that $p \neq y$, $\| p-y \|^2 > 0$. If we have the assumption that $<x-p,p-y> \geq 0$, using (i),
+the staement trivially holds. \ Q.E.D \\\\
+(iii) Using (i),
+\begin{align*}
+  \|x-z\|^2=& \|x-p\|^2 + \| \lambda y - \lambda p \|^2 + <x-p, \lambda p - \lambda y> \\
+  =& \|x-p\|^2 + 2 \lambda <x-p, p-y> + \lambda^2 \| y-p \|^2 \\
+\end{align*}
+(iv) \\
+Using (7.15), and setting $\lambda = 1$, thus $z=y$. Then, using (7.15),
+\[0 \leq \|x-y\|^2 - \| x-p \|^2 = 2 \lambda <x-p, p-y> + \lambda^2 \| y-p \|^2 \]
+If you divide by $\lambda$ , then $ 0 \leq 2 <x-p,p-y> + \lambda \| y-p \|^2 $ \\
+This holds for every $y \in C$, so $<x-p,p-y> \geq 0 $
+\end{proof}
+\end{problem}
+
+\begin{problem}{7.8}
+\begin{align*}
+ g(\lambda x + (1 - \lambda) y  =&  f(\lambda(Ax + b) + (1- \lambda)(Ay + b) ) \\
+   \leq & \lambda f(Ax + b) + (1-\lambda) f(Ay + b) \\
+   =& \lambda g(x) + (1-\lambda) g(y) \\
+\end{align*}
+\end{problem}
+
+\begin{problem}{7.12}
+(i)
+
+Take $X,Y\in PD_n(\mathbb R)$ and $\lambda\in[0,1]$.
+Then for every $v\in\mathbb R^n$ we have that
+\begin{align*}
+    v^T(\lambda X+(1-\lambda)Y)v=
+    \lambda(v^TXv)+(1-\lambda)(v^TYv)>0,
+\end{align*}
+because $X$ and $Y$ are positive definite.
+
+(ii)
+
+(a)
+Take $t_1, t_2\in\mathbb R$ and $\lambda\in[0,1]$.
+On the one hand,
+\begin{align*}
+    \lambda g(t_1) + (1-\lambda)g(t_2) =
+    \lambda f(t_1A+(1-t_1)B) + (1-\lambda)f(t_2A+(1-t_2)B).
+\end{align*}
+On the other,
+\begin{align*}
+    g(\lambda t_1 + (1-\lambda)t_2) &=
+    f((\lambda t_1+(1-\lambda)t_2)A + (1-\lambda t_1+(1-\lambda)t_2)B)\\
+    &=f(\lambda(t_1A+(1-t_1)B)+(1-\lambda)(t_2A+(1-t_2)B)).
+\end{align*}
+Since $g$ is convex we get
+\begin{align*}
+    f(\lambda X+(1-\lambda)Y)\leq\lambda f(X)+(1-\lambda)f(Y),
+\end{align*}
+with $X=t_1A+(1-t_1)B$ and $Y=t_2A+(1-t_2)B$.
+Since the choice of $t$ was arbitrary and this holds for any $A,B\in PD_n(\mathbb R)$,
+we conclude that $f$ is convex.
+
+(b)
+By Proposition $(4.5.7)$, we know that if $A$ is posititve definite, then there exits a nonsingular matrix
+$S$ such that $A=S^HS$. Then, $tA+(1-t)B=S^H(tI+(1-t)(S^H)^{-1}BS^{-1})S$,
+and so
+\begin{align*}
+    g(t) = -\log(\text{det}(tA+(1-t)B))=
+    -\log(\text{det}(S^H(tI+(1-t)(S^H)^{-1}BS^{-1})S)).
+\end{align*}
+By the fact that $\text{det}(AB)=\text{det}(A)\text{det}(B)$ and the properties of logarithms,
+we obtain
+\begin{align*}
+    -\log(\text{det}(S^H(tI+(1-t)(S^H)^{-1}BS^{-1})S))&=
+    -\log(\text{det}(S^H)) - \log(\text{det}(tI+(1-t)(S^H)^{-1}BS^{-1})) - \log(\text{det}(S))\\
+    &=-\log(\text{det}(S^H)\text{det}(S)) - \log(\text{det}(tI+(1-t)(S^H)^{-1}BS^{-1}))\\
+    &=-\log(\text{det}(A))- \log(\text{det}(tI+(1-t)(S^H)^{-1}BS^{-1})).
+\end{align*}
+
+(c)
+
+Since $A,B\in PD_n(\mathbb R)$, then $B^{-1}\in PD_n(\mathbb R)$ and
+$((S^H)^{-1}BS^{-1})^{-1} = SB^{-1}S^H$ is positive definite since
+\begin{align*}
+    x^HSB^{-1}S^Hx=
+    (S^Hx)^HB^{-1}(xS)>0.
+\end{align*}
+Therefore $(S^H)^{-1}BS^{-1}$ is positive definite.
+Now let $\{\lambda_i\}_i$ be the collection of eigenvalues of $((S^H)^{-1}BS^{-1})$
+and $\{x_i\}_i$ the corresponding collection of eigenvectors. Then for every $i$:
+\begin{align*}
+    (tI+(1-t)(S^H)^{-1}BS^{-1})x_i=
+    tx_i + (1-t)\lambda_ix_i=
+    (t+(1-t)\lambda_i)x_i.
+\end{align*}
+Thus, $\{t + (1-t)\lambda_i\}_i$ are the eigenvalues of $(tI+(1-t)(S^H)^{-1}BS^{-1})$
+corresponding to the $\{x_i\}_i$, and we can conclude that
+\begin{align*}
+    -\log(\text{det}(A))- \log(\text{det}(tI+(1-t)(S^H)^{-1}BS^{-1}))=&
+    -\log(\text{det}(A))- \log(\Pi_{i=1}^n(t + (1-t)\lambda_i))\\
+    &=-\log(\text{det}(A))- \sum_{i=1}^n\log((t + (1-t)\lambda_i)).
+\end{align*}
+
+(d)
+
+By using the expression of $g(t)$ in part (c) we can see that
+$g'(t)\sum_{i=1}^n(1-\lambda_i)/(t+(1-t)\lambda_i)$ and
+$g''(t)=\sum_{i=1}^n(1-\lambda_i)^2/(t+(1-t)\lambda_i)^2$,
+which is clearly nonnegative for all $t\in[0,1]$.
+\end{problem}
+
+\begin{problem}{7.13}
+Suppose $f(x)<M$ for all $x$ for some real $M$ and $f$ is convex and not constant.
+Then, there exist $x,y\in\mathbb R^n$ such that $f(x)\neq f(y)$.
+But then the line between $(x,f(x))$ and $(y,f(y))$ intersects $f(\cdot)=M$.
+Since $f$ must lie on or above this line, at some point it must cross $f(\cdot)=M$ as well, which is a contraddiction. \\\\
+\end{problem}
+\begin{problem}{7.20}
+Take $x,y\in\mathbb R^n$, with $x\neq y$, and $\lambda\in[0,1]$.
+Since $f$ is convex we have $f(\lambda x+(1-\lambda)y)\leq\lambda f(x)+(1-\lambda)f(y)$.
+Since $-f$ is convex, the opposite hold.
+Therefore we must have $f(\lambda x+(1-\lambda) y) = \lambda f(x)+(1-\lambda)f(y)$.
+Therefore $f$ is affine. \\\\
+\end{problem}
+
+\begin{problem}{7.21}
+Let $x^*\in\mathbb R^n$ be a local minimizer of $f$.
+Then $f(x^*)\leq f(x)$ for all $x\in\mathcal N_r(x^*)$,
+where $\mathcal N_r(x^*)$ is an open ball around $x^*$ of radius $r>0$.
+Since $\phi$ is monothonically increasing, $\phi(f(x^*))\leq\phi(f(x))$ for all $x\in\mathcal N_r(x^*)$.
+Thus, $x^*$ is a local minimizer of $\phi\circ f$.
+Now let $x^*$ be a local minimizer of $\phi\circ f$.
+Then $\phi(f(x^*))\leq\phi(f(x))$ for all $x\in\mathcal N_r(x^*)$,
+and since $\phi$ is monothonically increasing, this implies that
+$f(x^*)\leq f(x)$ for all $x\in\mathcal N_r(x^*)$.
+Thus, $x^*$ is a local minimizer of $f$.
+\end{problem}
+
+
 \end{document}
