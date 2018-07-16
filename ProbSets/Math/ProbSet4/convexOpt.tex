@@ -1,0 +1,130 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\pagestyle{fancy}
+\usepackage{amsmath, amsthm, amssymb, amsfonts, mathtools, xfrac,mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx,dsfont}
+\usepackage{braket, bm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{systeme}
+
+\everymath{\displaystyle}
+\headheight=20pt
+
+
+\newcommand{\N}{\mathbb{N}}
+
+\usepackage{listings}
+\lstset{frame=single,
+  language=C++,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  keywordstyle=\bfseries\color{OliveGreen},
+  commentstyle=\itshape\color{purple},
+  identifierstyle=\color{blue},
+  stringstyle=\color{red},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+
+\title{Homework}
+\lhead{High Performance Computing}
+\chead{Pset 4}
+\rhead{Alex Weinberg}
+
+\begin{document}
+
+\begin{problem}{6.6}
+Find the critical points of $f(x,y) = 3x^2y + 4xy^2 + xy$
+\begin{proof}
+We want $f'=0$
+$$ \Delta f = (6xy + 4y^2 + y, 8xy + 3x^2 + x)$$
+This becomes a system of linear equations
+\[
+\systeme*{0=6xy + 4y^2 + y, 0=8xy + 3x^2 + x}
+\]
+\textbf{Case 1}: x=0
+\begin{align*}
+\implies 4y^2 + y = 0 \\
+\implies y(4y + 1) = 0 \\
+\implies y = 0, \frac{-1}{4}
+\end{align*}
+
+\textbf{Case 2}: y=0
+\begin{align*}
+\implies 3x^2 + x = 0 \\
+\implies x(3x + 1) = 0 \\
+\implies x = 0, \frac{-1}{3}
+\end{align*}
+
+\textbf{Case 3}:
+$y \neq 0, \quad x \neq 0$
+\[
+\systeme*{0=y(6x + 4y + 1), 0=x(3x + 8y + 1)}
+\implies \systeme*{0=6x + 4y + 1, 0=3x + 8y + 1}
+\]
+\begin{align*}
+\implies -12y - 1 = 0 \\
+\implies y = \frac{-1}{12} \\
+\implies x = \frac{-1}{9}
+\end{align*}
+
+\begin{center}
+ \begin{tabular}{||c c c||}
+ \hline
+ x & y & Type\\ [0.5ex]
+ \hline\hline
+ 0 & 0 &\\
+ \hline
+ 0 & -1/4\\
+ \hline
+ -1/3 & 0\\
+ \hline
+ -1/9 & -1/12\\
+ \hline
+ \hline
+\end{tabular}
+\end{center}
+
+\end{proof}
+\end{problem}
+%-------------------------------------------------------------------------------
+\begin{problem}{6.11}
+$f(x) = ax^2 + bx + c$.
+Show that one iteration of newton's method will give you a unique solution.
+
+\begin{proof}
+\begin{align*}
+x_1:= x_0 - \frac{f'(x_0)}{f"(x_0)} \\
+x_1 = x_0 - \frac{2ax_0+b}{2a} \\
+\end{align*}
+\end{proof}
+
+\end{problem}
+
+
+%-------------------------------------------------------------------------------
+\begin{problem}{7.1}
+\textbf{WTS:} if $ S \subset V, s \neq \emptyset \quad \text{then} \quad conv(S)$ is convex.
+\end{problem}
+\begin{proof}
+\textbf{WTS:} $$\lambda x + (1 - \lambda)y \in conv(S)$$
+$$ \lambda a_1x_1 + \hdots + \lambda a_kx_k + (1-\lambda)b_1y_1 + \hdots + (1-\lambda)b_ky_k
+$$
+As $0 \leq \lambda \leq 1$,
+$$ \lambda \sum a_i + (1-\lambda)\sum b_i  = \lambda + (1-\lambda) = 1
+$$
+\end{proof}
+%-------------------------------------------------------------------------------
+\end{document}
