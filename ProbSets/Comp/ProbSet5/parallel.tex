@@ -1,0 +1,85 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\pagestyle{fancy}
+\usepackage{amsmath, amsthm, amssymb, amsfonts, mathtools, xfrac,mathrsfs}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{graphicx,dsfont}
+\usepackage{braket, bm}
+\usepackage[dvipsnames]{xcolor}
+
+\everymath{\displaystyle}
+\headheight=20pt
+
+
+\newcommand{\N}{\mathbb{N}}
+
+\usepackage{listings}
+\lstset{frame=single,
+  language=C++,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  keywordstyle=\bfseries\color{OliveGreen},
+  commentstyle=\itshape\color{purple},
+  identifierstyle=\color{blue},
+  stringstyle=\color{red},
+  numbers=none,
+  breaklines=true,
+  breakatwhitespace=true
+  tabsize=3
+}
+
+\newenvironment{problem}[2][Problem]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+
+
+\title{Homework}
+\lhead{High Performance Computing}
+\chead{Pset 4}
+\rhead{Alex Weinberg}
+
+\begin{document}
+%-------------------------------------------------------------------------------
+\begin{problem}{1}
+Parallelize this code to normalize a vector
+\end{problem}
+\begin{proof}
+\begin{itemize}
+\item It was interesting. I wasn't able to get more than a 4x speedup from parallelize with only one node.
+It got better with more nodes, but very slowly. Probably because of the large overhead and large amount of waiting.
+\item Pasted below are my code, makefile, and submission file
+\end{itemize}
+\lstinputlisting[caption=Parallel Normalize vector]{normalize_vec.cpp}
+\lstinputlisting[caption=Make File]{makefile}
+\lstinputlisting[caption=Submit file]{submit_openmp_midway.sh}
+
+\end{proof}
+%-------------------------------------------------------------------------------
+\begin{problem}{2}
+Parallelize this dot product code
+\end{problem}
+\begin{proof}
+\begin{itemize}
+\item It took about .7 seconds (un-parallelize) and then even longer .86 seconds when run parallelized
+this makes sense because of the overhead.
+\item It took about .4 seconds parallelized with 8 threads
+\item with an array of 500,000,000 , it took 2 seconds parallelized with 8 threads and my run with 1 thread was killed :(
+\item with array of 10,000, 8 threads took 1.934e-4 seconds and 1 thread took 9.45628e-05 seconds. This is wild because fewer threads took less time. Amdahl's law strikes again!
+\end{itemize}
+\lstinputlisting[caption=Parallel Dot product vector]{dot_prod.cpp}
+\end{proof}
+
+%-------------------------------------------------------------------------------
+\begin{problem}{3}
+MonteCarlo Estimate Pi
+\end{problem}
+\begin{proof}
+\lstinputlisting[caption=Parallel Dot product vector]{parallel_pi.cpp}
+\end{proof}
+%-------------------------------------------------------------------------------
+%-------------------------------------------------------------------------------
+\end{document}

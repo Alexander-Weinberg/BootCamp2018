@@ -61,4 +61,21 @@ Common sense speed-ups:
 4. Vectorization
     use pre-built libraries
 
-    
+############################
+DAY 3
+############################
+
+1. shared and private things
+2. use those prebuilt structures to implement
+
+mpi-forum.org
+3. all variables are private/local but if you want to use them in parallel need to pass information
+
+4. Workflow
+a) call mpi enviornment
+b)
+
+communicators = collection of all the processes you have
+ranks =   unique identifier
+
+dont use more mpi's than cores you have
