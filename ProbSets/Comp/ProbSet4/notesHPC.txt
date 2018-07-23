@@ -79,3 +79,11 @@ communicators = collection of all the processes you have
 ranks =   unique identifier
 
 dont use more mpi's than cores you have
+
+########################################
+# Fourth class
+########################################
+
+1. spllit the mpi communicator, scatter a specific range of the value function
+2. distrubute those subsequence with OpenMP
+3. cd OSM2018/project2/osmlab
