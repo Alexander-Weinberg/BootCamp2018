@@ -1,0 +1,262 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Question 1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 300,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import numpy as np\n",
+    "import scipy.stats as sts\n",
+    "from scipy.integrate import quad\n",
+    "import scipy.optimize as opt"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 146,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def numer_integrate(fun, a, b, method='Simpsons', N=1000):\n",
+    "    \n",
+    "    if method == 'midpoint':\n",
+    "        domain = np.array([a+(2*i + 1)*(b - a)/(2*N) for i in range(N)])\n",
+    "        integ = fun(domain).sum() * (b - a) / N\n",
+    "        \n",
+    "    elif method == 'trapezoid':\n",
+    "        domain = np.array([a + i*(b-a)/N for i in range(N)])\n",
+    "        integ = fun(domain[0]) + (2 * fun(domain[1:-1]).sum()) + fun(domain[-1])\n",
+    "        integ = integ * (b-a) / (2*N)\n",
+    "    \n",
+    "    elif method == 'Simpsons':\n",
+    "        ####!!!! COME BACK AND FIX ME !!!! ######\n",
+    "        domain_odd = np.array([a + i * (b-a) / (2 * N) for i in range(1, 2*N - 1, 2)])\n",
+    "        domain_even = np.array([a + i * (b-a) / (2 * N) for i in range(2, 2*N - 2, 2)])\n",
+    "        integ = 4*fun(domain_odd).sum() + 2*fun(domain_even).sum() + fun(a) + fun(b)\n",
+    "        integ = integ * (b-a) / (6*(N+1))\n",
+    "    \n",
+    "    return integ\n",
+    "\n",
+    "\n",
+    "g = lambda x: 0.1*(x**4) - 1.5*(x**3) + 0.53*x**2 + 2*x + 1"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 147,
+   "metadata": {},
+   "outputs": [
+    {
+     "name": "stdout",
+     "output_type": "stream",
+     "text": [
+      "Midpoint difference from analytical:  0.010353323999879649\n",
+      "Trapezoid difference from analytical:  8.543164735840946\n",
+      "Simpsons difference from analytical:  4.135832216997187\n"
+     ]
+    }
+   ],
+   "source": [
+    "print(\"Midpoint difference from analytical: \",np.abs(4373.33 - numer_integrate(g, -10,10, method='midpoint')))\n",
+    "print(\"Trapezoid difference from analytical: \",np.abs(4373.33 - numer_integrate(g, -10,10, method='trapezoid')))\n",
+    "print(\"Simpsons difference from analytical: \",np.abs(4373.33 - numer_integrate(g, -10,10, method='Simpsons')))"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 14.2"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 237,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def discretize_normal(mu, sigma, N):\n",
+    "    a = mu - 3*sigma\n",
+    "    b = mu + 3*sigma\n",
+    "    \n",
+    "    z_nodes = np.array([a+(2*i + 1)*(b - a)/(2*N) for i in range(N+1)])\n",
+    "\n",
+    "    pdf = lambda z: sts.norm.pdf(z,loc=mu,scale=sigma)\n",
+    "    zmin = lambda i: (z_nodes[i-1] + z_nodes[i]) / 2\n",
+    "    zmax = lambda i: (z_nodes[i] + z_nodes[i+1]) / 2\n",
+    "\n",
+    "    weights = [(quad(pdf, zmin(i), zmax(i))) for i in range(1,len(z_nodes)-1)]\n",
+    "    \n",
+    "    cdf = lambda i: sts.norm.cdf(zmin(i), loc=mu, scale=sigma)\n",
+    "    weights.append(1 - cdf(N))\n",
+    "    weights.insert(0, cdf(2))\n",
+    "    \n",
+    "    return z_nodes, weights\n",
+    "        "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 238,
+   "metadata": {},
+   "outputs": [
+    {
+     "data": {
+      "text/plain": [
+       "(array([-2.72727273, -2.18181818, -1.63636364, -1.09090909, -0.54545455,\n",
+       "         0.        ,  0.54545455,  1.09090909,  1.63636364,  2.18181818,\n",
+       "         2.72727273,  3.27272727]),\n",
+       " [0.02812518264098341,\n",
+       "  (0.021072041167293665, 2.3394665279778587e-16),\n",
+       "  (0.05821583806839076, 6.463256382137712e-16),\n",
+       "  (0.12028566703744605, 1.3354391707736785e-15),\n",
+       "  (0.1859047465269595, 2.0639572998133407e-15),\n",
+       "  (0.2149371314524406, 2.3862815218538345e-15),\n",
+       "  (0.1859047465269595, 2.0639572998133407e-15),\n",
+       "  (0.12028566703744605, 1.3354391707736785e-15),\n",
+       "  (0.05821583806839076, 6.463256382137712e-16),\n",
+       "  (0.021072041167293665, 2.3394665279778587e-16),\n",
+       "  (0.005703243442059674, 6.331872184417079e-17),\n",
+       "  0.0013498980316301035])"
+      ]
+     },
+     "execution_count": 238,
+     "metadata": {},
+     "output_type": "execute_result"
+    }
+   ],
+   "source": [
+    "discretize_normal(0,1,11)"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 14.3"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## 14.4"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# 14.5"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 353,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "def system(param, *args):\n",
+    "    \n",
+    "    weights, x_vec = np.split(param, 2)\n",
+    "    a,b,N = args\n",
+    "    # LHS\n",
+    "    h = lambda x,i: x ** i \n",
+    "    H = lambda x,i: (x ** (i+1)) / (i + 1)\n",
+    "    integrals = np.array([H(b,i) - H(a,i) for i in range(2*N-1)])\n",
+    "\n",
+    "    # RHS\n",
+    "    mult_weight = lambda x, wgt, n, i: wgt[n] * h(x[n], i) \n",
+    "    \n",
+    "    sum_weight =np.zeros(2*N-1) # initialize array\n",
+    "    for i in range(2*N-1):\n",
+    "        sum_weight[i] = np.array([mult_weight(x_vec,weights,n,i) for n in range(N)]).sum()\n",
+    "    \n",
+    "    error = np.abs(sum_weight)\n",
+    "    return error\n",
+    "\n",
+    "def gauss_quad(func, *args):\n",
+    "    a, b, N = args\n",
+    "    \n",
+    "    weight_guess = np.ones(2*N-1)\n",
+    "    x_guess = np.ones(2*N-1)\n",
+    "    param_guess = [weight_guess, x_guess]\n",
+    "    \n",
+    "    result = opt.minimize(system, param_guess, args=args)\n",
+    "    return result\n",
+    "    "
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": 354,
+   "metadata": {},
+   "outputs": [
+    {
+     "ename": "ValueError",
+     "evalue": "setting an array element with a sequence.",
+     "output_type": "error",
+     "traceback": [
+      "\u001b[0;31m-------------------------------------------------------------------------\u001b[0m",
+      "\u001b[0;31mValueError\u001b[0m                              Traceback (most recent call last)",
+      "\u001b[0;32m<ipython-input-354-c4d6145465fd>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      1\u001b[0m \u001b[0mmy_args\u001b[0m\u001b[0;34m=\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0;34m-\u001b[0m\u001b[0;36m10\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m10\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;36m3\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 2\u001b[0;31m \u001b[0mgauss_quad\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mg\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m*\u001b[0m\u001b[0mmy_args\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+      "\u001b[0;32m<ipython-input-353-994e012ea371>\u001b[0m in \u001b[0;36mgauss_quad\u001b[0;34m(func, *args)\u001b[0m\n\u001b[1;32m     25\u001b[0m     \u001b[0mparam_guess\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m[\u001b[0m\u001b[0mweight_guess\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mx_guess\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     26\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m---> 27\u001b[0;31m     \u001b[0mresult\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mopt\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mminimize\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0msystem\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mparam_guess\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m     28\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mresult\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m     29\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda3/lib/python3.6/site-packages/scipy/optimize/_minimize.py\u001b[0m in \u001b[0;36mminimize\u001b[0;34m(fun, x0, args, method, jac, hess, hessp, bounds, constraints, tol, callback, options)\u001b[0m\n\u001b[1;32m    595\u001b[0m         \u001b[0;32mreturn\u001b[0m \u001b[0m_minimize_cg\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfun\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mx0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mjac\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcallback\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0moptions\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    596\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mmeth\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'bfgs'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 597\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0m_minimize_bfgs\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfun\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mx0\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mjac\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mcallback\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m**\u001b[0m\u001b[0moptions\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    598\u001b[0m     \u001b[0;32melif\u001b[0m \u001b[0mmeth\u001b[0m \u001b[0;34m==\u001b[0m \u001b[0;34m'newton-cg'\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    599\u001b[0m         return _minimize_newtoncg(fun, x0, args, jac, hess, hessp, callback,\n",
+      "\u001b[0;32m~/anaconda3/lib/python3.6/site-packages/scipy/optimize/optimize.py\u001b[0m in \u001b[0;36m_minimize_bfgs\u001b[0;34m(fun, x0, args, jac, callback, gtol, norm, eps, maxiter, disp, return_all, **unknown_options)\u001b[0m\n\u001b[1;32m    961\u001b[0m     \u001b[0;32melse\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    962\u001b[0m         \u001b[0mgrad_calls\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mmyfprime\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mwrap_function\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mfprime\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 963\u001b[0;31m     \u001b[0mgfk\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mmyfprime\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    964\u001b[0m     \u001b[0mk\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m0\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    965\u001b[0m     \u001b[0mN\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mlen\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mx0\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda3/lib/python3.6/site-packages/scipy/optimize/optimize.py\u001b[0m in \u001b[0;36mfunction_wrapper\u001b[0;34m(*wrapper_args)\u001b[0m\n\u001b[1;32m    291\u001b[0m     \u001b[0;32mdef\u001b[0m \u001b[0mfunction_wrapper\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0mwrapper_args\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    292\u001b[0m         \u001b[0mncalls\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0;36m0\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m+=\u001b[0m \u001b[0;36m1\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 293\u001b[0;31m         \u001b[0;32mreturn\u001b[0m \u001b[0mfunction\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mwrapper_args\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    294\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    295\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mncalls\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mfunction_wrapper\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda3/lib/python3.6/site-packages/scipy/optimize/optimize.py\u001b[0m in \u001b[0;36mapprox_fprime\u001b[0;34m(xk, f, epsilon, *args)\u001b[0m\n\u001b[1;32m    721\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    722\u001b[0m     \"\"\"\n\u001b[0;32m--> 723\u001b[0;31m     \u001b[0;32mreturn\u001b[0m \u001b[0m_approx_fprime_helper\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mxk\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mf\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mepsilon\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0margs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    724\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    725\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;32m~/anaconda3/lib/python3.6/site-packages/scipy/optimize/optimize.py\u001b[0m in \u001b[0;36m_approx_fprime_helper\u001b[0;34m(xk, f, epsilon, args, f0)\u001b[0m\n\u001b[1;32m    661\u001b[0m         \u001b[0mei\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mk\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m1.0\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    662\u001b[0m         \u001b[0md\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mepsilon\u001b[0m \u001b[0;34m*\u001b[0m \u001b[0mei\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m--> 663\u001b[0;31m         \u001b[0mgrad\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mk\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;34m(\u001b[0m\u001b[0mf\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m*\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mxk\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0md\u001b[0m\u001b[0;34m,\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m+\u001b[0m \u001b[0margs\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m-\u001b[0m \u001b[0mf0\u001b[0m\u001b[0;34m)\u001b[0m \u001b[0;34m/\u001b[0m \u001b[0md\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mk\u001b[0m\u001b[0;34m]\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m    664\u001b[0m         \u001b[0mei\u001b[0m\u001b[0;34m[\u001b[0m\u001b[0mk\u001b[0m\u001b[0;34m]\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m0.0\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m    665\u001b[0m     \u001b[0;32mreturn\u001b[0m \u001b[0mgrad\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+      "\u001b[0;31mValueError\u001b[0m: setting an array element with a sequence."
+     ]
+    }
+   ],
+   "source": [
+    "my_args= (-10,10,3)\n",
+    "gauss_quad(g, *my_args)"
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": []
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.6.5"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 2
+}
